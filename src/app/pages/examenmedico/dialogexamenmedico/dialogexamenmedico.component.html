@@ -1,0 +1,26 @@
+<div class="example-container">
+
+  <mat-form-field>
+    <input matInput placeholder="Denominacion" [(ngModel)]="examenmedico.denominacionexamenmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Descripcion" [(ngModel)]="examenmedico.descripcionexamenmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Precio" [(ngModel)]="examenmedico.precioexmenmedico">
+  </mat-form-field>
+
+   <mat-form-field>
+    <mat-select placeholder="Categoria" [(value)]="idCategoriaSeleccionado">
+      <mat-option *ngFor="let p of categoriaexamenmedico" [value]="p.idcategoriaexamenmedico">
+        {{ p.nombrecategoriaexamenmedico }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+    
+</div>
+
+<button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+<button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>

@@ -1,3 +1,73 @@
-<p>
-  proveedor works!
-</p>
+<mat-toolbar>Proveedores</mat-toolbar>
+
+
+<div class="proveedor-container mat-elevation-z8"  *ngIf="route.children.length === 0">
+  <router-outlet></router-outlet>
+    <div class="proveedor-header">
+    <mat-form-field>
+      <input matInput (keyup)= "applyFilter($event.target.value)" placeholder="Buscar proveedor" type="text">
+    </mat-form-field>
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="idproveedor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.idproveedor}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nombreproveedor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Razon social</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.nombreproveedor}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcionproveedor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.descripcionproveedor}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="telefonoproveedor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.telefonoproveedor}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="direccionproveedor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.direccionproveedor}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="correoproveedor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Correo</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.correoproveedor}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button color="primary" [routerLink]="['edicion', row.idproveedor]">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+      
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+
+    </mat-row>
+
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15, 100]"></mat-paginator>
+
+</div>
+<br/>
+
+<div class="registrar">
+<button class="agregar" mat-fab style="float:right" routerLink='/proveedor/nuevo'>
+  <mat-icon>create</mat-icon>
+</button>
+</div>
+
+
+
+
+

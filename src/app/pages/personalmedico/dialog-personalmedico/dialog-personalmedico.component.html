@@ -1,0 +1,64 @@
+<div class="example-container">
+
+  <mat-form-field>
+    <input matInput placeholder="DNI" [(ngModel)]="personalmedico.dnipersonalmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Nombres" [(ngModel)]="personalmedico.nombrespersonalmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput placeholder="Apellidos" [(ngModel)]="personalmedico.apellidospersonalmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" [(ngModel)]="personalmedico.fechanacimientopersonalmedico">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Correo" [(ngModel)]="personalmedico.correopersonalmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Telefono" [(ngModel)]="personalmedico.telefonopersonalmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="RNE" [(ngModel)]="personalmedico.rnepersonalmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="CMP" [(ngModel)]="personalmedico.cmppersonalmedico">
+  </mat-form-field>  
+
+  <mat-form-field>
+    <input matInput placeholder="Area" [(ngModel)]="personalmedico.areapersonalmedico">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Estado civil" [(ngModel)]="personalmedico.estadocivilpersonalmedico">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-select placeholder="Tipo" [(value)]="idTipopersonalmedicoSeleccionado">
+      <mat-option *ngFor="let p of tipopersonalmedicos" [value]="p.idtipopersonalmedico">
+        {{ p.cargopersonalmedico }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+    
+  <mat-form-field>
+    <mat-select placeholder="Especialidad" [(value)]="idEspecialidadSeleccionado">
+      <mat-option *ngFor="let p of especialidades" [value]="p.idespecialidad">
+        {{ p.nombreespecialidad }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+</div>
+
+<button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+<button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>

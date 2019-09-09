@@ -1,0 +1,23 @@
+
+.presen-container{
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.presen-header{
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+.mat-form-filed{
+    font-size: 14px;
+    width: 100%;
+}
+.mat-table{
+    overflow: auto;
+    max-height: 500px;
+}
+.agregar{
+    background: #3e2723;
+}

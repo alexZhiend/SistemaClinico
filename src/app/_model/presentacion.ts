@@ -1,6 +1,6 @@
 export class Presentacionproducto{
     idpresentacionproducto: number;
     nombrepresentacionproducto: string;
-    cantidadpresentacinproducto: number;
+    cantidadpresentacionproducto: number;
     unidadpresentacionproducto: string;
 }

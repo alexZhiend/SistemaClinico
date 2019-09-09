@@ -1,3 +1,90 @@
-<button mat-button> click </button>
+<div class="pazybien-contenedor">
 
-<router-outlet></router-outlet>
+    <mat-toolbar class="dispensario-toolbar">
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+            <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+        </button>
+
+        <h1 class="dispensario-app-nombre">Dispensario Paz y Bien</h1>
+        <span class="dispensario-spacer"></span>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+            
+        <mat-menu #menu="matMenu" class="uper">
+
+            <button mat-menu-item routerLink="/perfil">
+                <mat-icon>perm_identity</mat-icon>
+                <span>Mi perfil</span>
+            </button>
+
+            <button mat-menu-item routerLink="/login">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Cerrar Sesón</span>
+            </button>
+        </mat-menu>
+
+    </mat-toolbar>
+
+
+    <mat-sidenav-container class="dispensario-sidenav-contenedor">
+        <mat-sidenav #sidenav mode="side" [(opened)]="opened" style="width:200px" class="side">
+            <img src="assets/logo.png" alt="" style="height: 100px;">
+            
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/buscar" style="cursor:pointer ">
+                <mat-icon>search</mat-icon>
+                <span>Buscar</span>
+            </button>
+
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/buscar" style="cursor:pointer ">
+                <mat-icon>poll</mat-icon>
+                <span>General</span>
+            </button>
+
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/pedido" style="cursor:pointer">
+                <mat-icon>today</mat-icon>
+                <span>Calendario</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/serviciomedico" style="cursor:pointer">
+                <mat-icon>local_hospital</mat-icon>
+                <span>Servicios medicos</span>
+            </button>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/asd" style="cursor:pointer">
+                <mat-icon>supervisor_account</mat-icon>
+                <span>Personal medico</span>
+            </button>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/producto" style="cursor:pointer">
+                <mat-icon>spa</mat-icon>
+                <span>Laboratorio</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/proveedor" style="cursor:pointer">
+                <mat-icon>add_shopping_cart</mat-icon>
+                <span>Farmacia</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/frentetrabajo" style="cursor:pointer">
+                <mat-icon>invert_colors</mat-icon>
+                <span>Tópico</span>
+            </button>
+
+            <mat-divider></mat-divider>
+
+        </mat-sidenav>
+        <router-outlet></router-outlet>
+
+        <mat-sidenav-content>
+
+            <router-outlet></router-outlet>
+
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+
+</div>
+
+

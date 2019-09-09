@@ -1,0 +1,28 @@
+<mat-card>Ingrese los datos del tipo de paciente</mat-card>
+
+<br/>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()" #loginForm="ngForm">
+
+  <div [hidden]="true">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Id" required formControlName="id">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Denominación" required formControlName="denominacion">
+  </mat-form-field>
+  
+  <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+    <mat-icon>done</mat-icon>
+    <span>Aceptar</span>
+  </button>
+
+  <button mat-raised-button color="warn" routerLink="/tipopaciente" type="button">
+    <mat-icon>close</mat-icon>
+    <span>Cancelar</span>
+  </button>
+</form>
+
+<br/>
