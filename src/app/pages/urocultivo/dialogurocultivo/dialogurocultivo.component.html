@@ -1,0 +1,284 @@
+<mat-card>Ingrese los datos del examen</mat-card>
+<div class="example-container row">
+  
+  <div class="col-sm-6 col-xs-12" >  
+    <form  [formGroup]="form" (ngSubmit)="operar()">
+
+      <mat-form-field>
+        <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado"
+          [(value)]="idcomprobantepagoSeleccionado">
+          <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
+            {{ p.numerorecibocomprobante }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div hidden="true">
+        <mat-form-field>
+          <input matInput placeholder="id" formControlName="idurocultivo">
+        </mat-form-field>
+      </div>
+
+      <mat-card>Sedimento</mat-card>
+
+      <mat-form-field>
+        <input matInput placeholder="leucocitos" required formControlName="leucocitos" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="hematies" required formControlName="hematies" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="cepiteliales" required formControlName="cepiteliales" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="cristales" required formControlName="cristales" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="germenes" required formControlName="germenes" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="otros" required formControlName="otros" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="numero" required formControlName="numero" type="number">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select (selectionChange)="prueba($event)" placeholder="Antibiograma" required
+          formControlName="antibiogramaSeleccionado" [(value)]="antibiogramaSeleccionado">
+          <mat-option *ngFor="let p of antibiograma" [value]="p">
+            {{ p }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <input matInput placeholder="germenaislado" required formControlName="germenaislado" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="observaciones" required formControlName="observaciones" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" required formControlName="fechaseleccionada" placeholder="Fecha">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      
+    </form>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+
+    <mat-card class="card">Antibiograma</mat-card>
+    
+    <div *ngIf="show1">
+      <form class="example" [formGroup]="form1" >
+        <div hidden="true">
+          <mat-form-field>
+            <input matInput placeholder="id" formControlName="idgramnegativo">
+          </mat-form-field>
+        </div>
+
+        <mat-form-field>
+          <mat-select placeholder="Cefalotina" required formControlName="cefalotinaSeleccionado"
+            [(value)]="cefalotinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="Cefotaximina" required formControlName="cefotaximinaSeleccionado"
+            [(value)]="cefotaximinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Ceftriazona" required formControlName="ceftriazonaSeleccionado"
+            [(value)]="ceftriazonaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Sulfatrimet" required formControlName="sulfatrimetSeleccionado"
+            [(value)]="sulfatrimetSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Ciprofloxacina" required formControlName="ciprofloxacinaSeleccionado"
+            [(value)]="ciprofloxacinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Cloranfenicol" required formControlName="cloranfenicolSeleccionado"
+            [(value)]="cloranfenicolSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Gentamicina" required formControlName="gentamicinaSeleccionado"
+            [(value)]="gentamicinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Aztreonam" required formControlName="aztreonamSeleccionado"
+            [(value)]="aztreonamSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Amox/ Ax. Clavul" required formControlName="amoxclavulSeleccionado"
+            [(value)]="amoxclavulSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Ac. Nalidixico" required formControlName="acnalidixicoSeleccionado"
+            [(value)]="acnalidixicoSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div>
+          <button style="float:left" mat-raised-button color="accent" (click)="cancelarsub1()">Cancelar</button>
+          <button style="float:right" mat-raised-button color="primary" (click)="negativo()">Aceptar</button>
+        </div>
+
+      </form>
+    </div>
+
+    <div *ngIf="show">
+      <form class="example" [formGroup]="form2">
+        <div hidden="true">
+          <mat-form-field>
+            <input matInput placeholder="id" formControlName="idgrampositivo">
+          </mat-form-field>
+        </div>
+
+        <mat-form-field>
+          <mat-select placeholder="Amikacina" required formControlName="amikacinaSeleccionado" [(value)]="amikacinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="Sulfatrimet" required formControlName="sulfatrimetSeleccionado"
+            [(value)]="sulfatrimetSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Ampicilina" required formControlName="ampicilinaSeleccionado"
+            [(value)]="ampicilinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Penicilina" required formControlName="penicilinaSeleccionado"
+            [(value)]="penicilinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Tetraciclina" required formControlName="tetraciclinaSeleccionado"
+            [(value)]="tetraciclinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Dicloxacilina" required formControlName="dicloxacilinaSeleccionado"
+            [(value)]="dicloxacilinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Oxacilina" required formControlName="oxacilinaSeleccionado"
+            [(value)]="oxacilinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Cefazolina" required formControlName="cefazolinaSeleccionado"
+            [(value)]="cefazolinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Ceftriazona" required formControlName="ceftriazonaSeleccionado"
+            [(value)]="ceftriazonaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Sultamicina" required formControlName="sultamicinaSeleccionado"
+            [(value)]="sultamicinaSeleccionado">
+            <mat-option *ngFor="let p of detalles" [value]="p">
+              {{ p }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div>
+            <button style="float:left" mat-raised-button color="accent" (click)="cancelarsub1()">Cancelar</button>
+            <button style="float:right" mat-raised-button color="primary" (click)="positivo()">Aceptar</button>
+        </div>
+
+      </form>
+    </div>
+    </div>
+</div>
+
+<div >
+    <button style="float: left;"  mat-raised-button color="accent"  (click)="cancelar()">Cancelar</button>
+    <button style="float: right;"  mat-raised-button color="primary" [disabled]="form.invalid || form1.invalid || form2.invalid" (click)="operar()">Aceptar</button>
+</div>

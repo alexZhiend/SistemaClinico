@@ -1,0 +1,32 @@
+.resultado{
+    padding-left: 25px;
+}
+
+.nombre{
+    padding-left: 25px;
+}
+
+.observacion{
+    padding-left: 25px;
+}
+.fecha{
+    padding-left: 25px;
+}
+
+.listacontainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.agregar{
+    margin: 25px;
+}
+
+.mat-form-field{
+    margin: 0 15px 0 15px;
+}
+.eliminar{
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+}

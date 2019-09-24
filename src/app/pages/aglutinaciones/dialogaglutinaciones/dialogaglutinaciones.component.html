@@ -1,0 +1,63 @@
+<mat-card>Ingrese los datos del examen</mat-card>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()">
+
+<div hidden="true">
+  <mat-form-field>
+      <input matInput placeholder="id" formControlName="idaglutinacionaf">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <input matInput placeholder="Tiphico O" required formControlName="tiphicoO"
+    type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Tiphico H" required formControlName="tiphicoH"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+  <input matInput placeholder="Tiphico H" required formControlName="tiphicoH"
+    type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Paratiphico A" required formControlName="paratiphicoA"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Paratiphico B" required formControlName="paratiphicoB"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Brucella" required formControlName="brucella"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Observaciones" required formControlName="observaciones"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker" required formControlName="fechaseleccionada" placeholder="Fecha" >
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado" [(value)]="idcomprobantepagoSeleccionado">
+      <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
+        {{ p.numerorecibocomprobante }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</form>
+
+<button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+<button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>

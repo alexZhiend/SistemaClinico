@@ -41,6 +41,13 @@ import { DialogproductoComponent } from './pages/producto/dialogproducto/dialogp
 import { DialogexamenmedicoComponent } from './pages/examenmedico/dialogexamenmedico/dialogexamenmedico.component';
 import { DialogpacienteComponent } from './pages/paciente/dialogpaciente/dialogpaciente.component';
 import { DialogPersonalmedicoComponent } from './pages/personalmedico/dialog-personalmedico/dialog-personalmedico.component';
+import { ExamenesgeneralesEdicionComponent } from './pages/examenesgenerales/examenesgenerales-edicion/examenesgenerales-edicion.component';
+import { DialogaglutinacionesComponent } from './pages/aglutinaciones/dialogaglutinaciones/dialogaglutinaciones.component';
+import { DialogOrinaComponent } from './pages/orina/dialog-orina/dialog-orina.component';
+import { DialogSecrecionesComponent } from './pages/secreciones/dialog-secreciones/dialog-secreciones.component';
+import { DialogHematogramaComponent } from './pages/hematograma/dialog-hematograma/dialog-hematograma.component';
+import { DetalleegComponent } from './pages/detalleeg/detalleeg.component';
+import { DialogurocultivoComponent } from './pages/urocultivo/dialogurocultivo/dialogurocultivo.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +86,15 @@ import { DialogPersonalmedicoComponent } from './pages/personalmedico/dialog-per
     DialogproductoComponent,
     DialogexamenmedicoComponent,
     DialogpacienteComponent,
-    DialogPersonalmedicoComponent
+    DialogPersonalmedicoComponent,
+    ExamenesgeneralesEdicionComponent,
+    DialogaglutinacionesComponent,
+    DialogOrinaComponent,
+    DialogSecrecionesComponent,
+    DialogHematogramaComponent,
+    DetalleegComponent,
+    DialogurocultivoComponent
+    
     ],
 
   imports: [
@@ -90,7 +105,10 @@ import { DialogPersonalmedicoComponent } from './pages/personalmedico/dialog-per
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents:[DialogproductoComponent,DialogexamenmedicoComponent, DialogpacienteComponent, DialogPersonalmedicoComponent],
+  entryComponents:[DialogproductoComponent,DialogexamenmedicoComponent, 
+    DialogpacienteComponent, DialogPersonalmedicoComponent, DialogOrinaComponent,
+    DialogaglutinacionesComponent, DialogSecrecionesComponent, DialogHematogramaComponent, 
+    DialogurocultivoComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

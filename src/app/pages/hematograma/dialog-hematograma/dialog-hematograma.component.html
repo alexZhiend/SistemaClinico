@@ -1,0 +1,56 @@
+<mat-card>Ingrese los datos del examen</mat-card>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()" >
+
+<div hidden="true">
+  <mat-form-field>
+    <input matInput placeholder="id" formControlName="idhematogramacompleto">
+  </mat-form-field>
+</div>
+
+  <mat-form-field>
+  <input matInput placeholder="neotrofilos" required formControlName="neotrofilos"
+    type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="eosinofilos" required formControlName="eosinofilos"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="monocitos" required formControlName="monocitos"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="linfocitos" required formControlName="linfocitos"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="mielositos" required formControlName="mielositos"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="juveniles" required formControlName="juveniles"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="abastonados" required formControlName="abastonados"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="segmentados" required formControlName="segmentados"
+      type="string" >
+  </mat-form-field>
+  
+</form>
+
+<div>
+  <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+  <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+</div>

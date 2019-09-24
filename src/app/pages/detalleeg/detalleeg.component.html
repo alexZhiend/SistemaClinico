@@ -1,0 +1,88 @@
+<div>
+
+  <form class="example-container" [formGroup]="form2" (ngSubmit)="agregar()">
+      <mat-form-field style="display: block">
+          <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado"
+            [(value)]="idcomprobantepagoSeleccionado">
+            <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
+              {{ p.numerorecibocomprobante }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>   
+  </form>
+
+  <form class="example-container" [formGroup]="form" (ngSubmit)="agregar()">
+
+    <mat-form-field>
+      <mat-select (selectionChange)="prueba($event)" placeholder="Examen" required formControlName="idexamengSeleccionado"
+        [(value)]="idexamengSeleccionado">
+        <mat-option *ngFor="let p of examenes" [value]="p.idexamenesg">
+        <span> {{p.denominacion}} </span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="resultado" >
+      <input type="text" matInput formControlName="resultado" placeholder="Resultados" required>
+    </mat-form-field>
+
+
+    <mat-form-field class="observacion">
+      <input type="text" matInput formControlName="observaciones" placeholder="Observaciones" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" required formControlName="fechaseleccionada" placeholder="Fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button class="agregar" color="primary" (click)="agregar()" type="button">
+        <mat-icon>add</mat-icon>
+        <span>Agregar</span>
+      </button>
+      <button mat-raised-button class="eliminar" color="warn" (click)="cancelar()" type="button">
+          <mat-icon>cancel</mat-icon>
+          <span>Terminar</span>
+        </button>
+  </form>
+
+
+
+  <div>
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="examen">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Examen</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.examenesg.denominacion}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="resultado">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Resultado</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.resultado}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="observaciones">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.observaciones}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.fecha}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+
+  </div>
+
+  <div style="padding-right: 50px">
+    <button class="agregar" mat-fab style="float:right" (click)="pdf()">
+      <mat-icon>picture_as_pdf</mat-icon>
+    </button>
+  </div>
+</div>

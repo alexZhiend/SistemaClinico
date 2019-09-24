@@ -1,0 +1,31 @@
+.example-container{
+    max-height: 500px;
+    overflow-y: scroll;  
+}
+.mat-form-field{
+    margin: 0 15px 0 15px;
+}
+
+.example-container::-webkit-scrollbar{
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+}
+
+.example-container::-webkit-scrollbar-thumb {
+    background: #3e2723;
+    border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active */
+.example-container::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+
+.example-container::-webkit-scrollbar-track {
+    background: #a3918c;
+    border-radius: 4px;
+}
+
+.card{
+    margin:65px 0px 0px 0px;
+}

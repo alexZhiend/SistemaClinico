@@ -2,6 +2,7 @@
 
 <div class="catmedico-container" mat-elevation-z8>
   <router-outlet></router-outlet>
+  
   <div class="catmedico-header">
     <mat-form-field>
       <input matInput (keyup)= "applyFilter($event.target.value)" placeholder="Buscar servicio medico" type="text">

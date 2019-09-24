@@ -1,0 +1,143 @@
+<mat-card>Ingrese los datos del examen</mat-card>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()" >
+
+  <mat-form-field>
+    <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado" [(value)]="idcomprobantepagoSeleccionado">
+      <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
+        {{ p.numerorecibocomprobante }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<div hidden="true">
+  <mat-form-field>
+    <input matInput placeholder="id" formControlName="idanalisisorina">
+  </mat-form-field>
+</div>
+
+  <mat-form-field>
+    <mat-select placeholder="Servicio medico" required formControlName="denominacionserviciomedico" [(value)]="denominacionserviciomedico">
+      <mat-option *ngFor="let p of servicios" [value]="p.denominacionserviciomedico">
+        {{ p.denominacionserviciomedico }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Medico" required formControlName="nombrespersonalmedico" [(value)]="nombrespersonalmedico">
+      <mat-option *ngFor="let p of medicos" [value]="p.apellidospersonalmedico +', '+ p.nombrespersonalmedico">
+          {{p.apellidospersonalmedico}}, {{ p.nombrespersonalmedico }}            
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+  <input matInput placeholder="color" required formControlName="color"
+    type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="aspecto" required formControlName="aspecto"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="densidad" required formControlName="densidad"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="reaccion" required formControlName="reaccion"
+      type="string" >
+  </mat-form-field>
+
+  <mat-card>Sedimento</mat-card>
+
+  <mat-form-field>
+    <input matInput placeholder="leucocitos" required formControlName="leucocitos"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="hematies" required formControlName="hematies"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="cepitelial" required formControlName="cepitelial"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="cristales" required formControlName="cristales"
+      type="string" >
+  </mat-form-field>
+  
+  <mat-form-field>
+    <input matInput placeholder="cilindros" required formControlName="cilindros"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="germenes" required formControlName="germenes"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="otros" required formControlName="otros"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="sangre" required formControlName="sangre"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="urobilina" required formControlName="urobilina"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="bilirrubina" required formControlName="bilirrubina"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="proteinas" required formControlName="proteinas"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="nitritos" required formControlName="nitritos"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="cetonas" required formControlName="cetonas"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="glucosa" required formControlName="glucosa"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="observaciones" required formControlName="observaciones"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker" required formControlName="fechaseleccionada" placeholder="Fecha" >
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+</form>
+
+<div>
+  <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+  <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+</div>

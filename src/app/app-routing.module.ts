@@ -1,3 +1,4 @@
+import { DetalleegComponent } from './pages/detalleeg/detalleeg.component';
 import { UrocultivoComponent } from './pages/urocultivo/urocultivo.component';
 import { HematogramacComponent } from './pages/hematogramac/hematogramac.component';
 import { HematogramaComponent } from './pages/hematograma/hematograma.component';
@@ -31,6 +32,7 @@ import { PacienteComponent } from './pages/paciente/paciente.component';
 import { PersonalmedicoComponent } from './pages/personalmedico/personalmedico.component';
 import { ProductoComponent } from './pages/producto/producto.component';
 import { SecrecionesComponent } from './pages/secreciones/secreciones.component';
+import { ExamenesgeneralesEdicionComponent } from './pages/examenesgenerales/examenesgenerales-edicion/examenesgenerales-edicion.component';
 
 const routes: Routes = [ 
 {path:'categoriaproducto', component: CategoriaproductoComponent, 
@@ -68,7 +70,10 @@ const routes: Routes = [
 {path:'aglutinacionaf', component: AglutinacionesComponent},
 {path:'comprobantepago',component:ComprobantepagoComponent},
 {path:'coprofuncional',component:CoprofuncionalComponent},
-{path:'examenesgenerales',component:ExamenesgeneralesComponent},
+{path:'examenesgenerales',component:ExamenesgeneralesComponent, 
+  children:[{path:'nuevo',component:ExamenesgeneralesEdicionComponent},
+            {path:'edicion/:id', component:ExamenesgeneralesEdicionComponent}
+]},
 {path:'examenmedico',component:ExamenmedicoComponent},
 {path:'analisisheces',component:HecesComponent},
 {path:'hematograma',component:HematogramaComponent},
@@ -77,6 +82,7 @@ const routes: Routes = [
 {path:'analisisorina',component:OrinaComponent},
 {path:'paciente',component:PacienteComponent},
 {path:'personalmedico',component:PersonalmedicoComponent},
+{path:'detalleexamengeneral', component:DetalleegComponent},
 {path:'producto',component:ProductoComponent},
 {path:'analisissecreciones',component:SecrecionesComponent},
 {path:'urocultivo',component:UrocultivoComponent},

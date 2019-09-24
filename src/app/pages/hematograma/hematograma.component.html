@@ -1,3 +1,161 @@
-<p>
-  hematograma works!
-</p>
+<mat-toolbar>Hematograma</mat-toolbar>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()" >
+
+  <mat-form-field>
+    <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado" [(value)]="idcomprobantepagoSeleccionado">
+      <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
+        {{ p.numerorecibocomprobante }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<div hidden="true">
+  <mat-form-field>
+    <input matInput placeholder="id" formControlName="idhematograma">
+  </mat-form-field>
+</div>
+
+  <mat-form-field>
+  <input matInput placeholder="Hematies" required formControlName="hematies"
+    type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Leucocitos" required formControlName="leucocitos"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Plaquetas" required formControlName="plaquetas"
+      type="string" >
+  </mat-form-field>
+
+  <mat-card></mat-card>
+
+  <mat-form-field>
+    <input matInput placeholder="Hemoglobina" required formControlName="hemoglobina"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Hematocrito" required formControlName="hematocrito"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Tiempo de coagulacion" required formControlName="tcoagulacion"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Tiempo de sangria" required formControlName="tsangria"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="vsg" required formControlName="vsg"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Grupo sanguineo" required formControlName="gruposanguineo"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Factor RH" required formControlName="rh"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="observaciones" required formControlName="observaciones"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Tipo" required formControlName="tipo"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker" required formControlName="fechaseleccionada" placeholder="Fecha" >
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+</form>
+
+<div style="margin-bottom: 50px">
+  <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+  <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+  <button style="float:right; margin-right: 15px" mat-raised-button color="primary" (click)="openDialog(row)">Hematograma completo</button>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar examen">
+    </mat-form-field>
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="idhematograma">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.idhematograma}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fecha}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.tipo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="observaciones">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.observaciones}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nombrespaciente">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.nombrespaciente}} </mat-cell>
+    </ng-container>    
+
+    <ng-container matColumnDef="apellidospaciente">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.apellidospaciente}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="hcl">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> HCL </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.hcl}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">        
+        <button mat-button color="primary" (click)="generatepdf()">
+          <mat-icon>picture_as_pdf</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+<br>
+
+<button mat-fab color="accent" (click)="abrir()" style="float: right; margin-right: 20px">
+  <mat-icon>create</mat-icon>
+</button>

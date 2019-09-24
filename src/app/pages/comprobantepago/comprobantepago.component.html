@@ -1,3 +1,50 @@
-<p>
-  comprobantepago works!
-</p>
+<mat-card>Ingrese los datos del comprobante</mat-card>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()">
+<router-outlet></router-outlet>
+<div hidden="true">
+  <mat-form-field>
+      <input matInput placeholder="id" formControlName="idcomprobante">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <input matInput placeholder="Numero de recibo" required formControlName="numero"
+    type="number" [(value)]="numero">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker" required formControlName="fechaseleccionada" placeholder="Fecha" >
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Paciente" required formControlName="hclSeleccionado" [(value)]="hclSeleccionado">
+      <mat-option *ngFor="let p of pacientes" [value]="p.hcl">
+        {{ p.dnipaciente }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Servicio medico" required formControlName="idServiciomedicoSeleccionado" [(value)]="idServiciomedicoSeleccionado">
+      <mat-option *ngFor="let p of serviciomedicos"  [value]="p.idserviciomedico">
+        {{ p.denominacionserviciomedico }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+    <input type="text" matInput [matAutocomplete]="auto" [formControl]="myControl"/>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions "  [value]="option">
+        {{option.nombrespaciente}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field> -->
+
+</form>
+
+<button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+<button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
