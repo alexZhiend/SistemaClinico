@@ -81,12 +81,12 @@ export class OrdenComponent implements OnInit {
   companterior(){
     this.ordenfarmaciaService.listarOrdenFarmaciaId().subscribe(data=>{
       this.ultimaorden=data;
-      console.log(this.ultimaorden);
-      let numero = this.ultimaorden.numeroorden.toString();
-      let cero = "0";
-      for(var _i=numero.length;;){
-
-      }
+      // console.log(this.ultimaorden);
+      // let numero = this.ultimaorden.numeroorden.toString();
+      // let cero = "0";
+      // for(var _i=numero.length;;){
+ 
+      // }
     });
   }
 
