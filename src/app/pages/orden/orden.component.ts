@@ -39,8 +39,9 @@ export class OrdenComponent implements OnInit {
   
   transactions:Detalleofvista[]=[];
   dataSource: MatTableDataSource<Detalleofvista>;
-  numeroorden:number;
+
   ultimaorden:OrdenFarmacia;
+  numeroorden:string;
 
   constructor(private ordenfarmaciaService:OrdenfarmaciaService,
     private productoService:ProductoService,
@@ -64,7 +65,6 @@ export class OrdenComponent implements OnInit {
   ngOnInit() {
     this.listarproducto();
     this.companterior();
-    this.numeroorden=123;
 
     this.ordenfarmaciaService.mensaje.subscribe(data=>{
       this.snackBar.open(data, null, { duration: 3000 });
@@ -81,12 +81,20 @@ export class OrdenComponent implements OnInit {
   companterior(){
     this.ordenfarmaciaService.listarOrdenFarmaciaId().subscribe(data=>{
       this.ultimaorden=data;
-      // console.log(this.ultimaorden);
-      // let numero = this.ultimaorden.numeroorden.toString();
-      // let cero = "0";
-      // for(var _i=numero.length;;){
- 
-      // }
+      console.log(this.ultimaorden);
+      if(this.ultimaorden!=null){
+      var numero= this.ultimaorden.numeroorden + 1;
+      }else{
+        numero=1;
+      }
+
+      let numeronuevo=numero.toString();
+      let cero = "0";
+      for(var _i=0;_i < 7-numeronuevo.length; _i++){
+        cero=cero+"0";
+      }
+      this.numeroorden=cero+numeronuevo; 
+      console.log(parseInt(this.numeroorden));
     });
   }
 
@@ -132,7 +140,7 @@ export class OrdenComponent implements OnInit {
 
   operar(){
     this.ordenFarmacia.consumidorordenfarmacia=this.form.value['consumidorordenfarmacia'];
-    this.ordenFarmacia.numeroorden=this.form.value['numeroorden'];
+    this.ordenFarmacia.numeroorden=parseInt(this.numeroorden);
     this.ordenFarmacia.fechaordenfarmacia=this.fechaSeleccionada;
     this.ordenFarmacia.rucordenfarmacia=this.form.value['rucordenfarmacia'];
     if (this.form.valid ===true) {
@@ -147,6 +155,14 @@ export class OrdenComponent implements OnInit {
 
   cancelar(){
     window.location.reload();
+  }
+  eliminar(transaction){
+    var position= this.transactions.indexOf(transaction);
+    this.ordenFarmacia.detalleordenF.splice(position,1);
+    this.transactions.splice(position,1);
+    console.log(this.transactions);
+    console.log(this.ordenFarmacia.detalleordenF);
+    this.dataSource= new MatTableDataSource(this.transactions);
   }
 
 }

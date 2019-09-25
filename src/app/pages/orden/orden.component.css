@@ -24,7 +24,7 @@ table {
 }
 .mat-table{
   overflow: auto;
-  max-height: 500px;
+  max-height: 400px;
 }
 .agregar{
   background: #3e2723;
@@ -32,4 +32,9 @@ table {
 
 .example{
 margin: 25px;
+}
+
+.inicio{
+  float: right;
+  padding-left: 25px;
 }
