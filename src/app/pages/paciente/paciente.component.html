@@ -20,14 +20,9 @@
       <mat-cell *matCellDef="let row"> {{row.dnipaciente}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="nombrespaciente">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres  </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.nombrespaciente}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="apellidospaciente">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos  </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.apellidospaciente}} </mat-cell>
+    <ng-container matColumnDef="nombresyapellidos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres y apellidos </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.nombresyapellidos}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="tipopaciente">
@@ -60,3 +55,5 @@
 <button mat-fab color="accent" (click)="openDialog(row)" style="float: right; margin-right: 20px">
   <mat-icon>create</mat-icon>
 </button>
+
+<div style="padding: 50px;"></div>

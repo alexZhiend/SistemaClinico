@@ -1,3 +1,6 @@
+import { LoginService } from './_service/login.service';
+import { MenuService } from './_service/menu.service';
+import { Menu } from './_model/menu';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +10,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Dispensariopazybien';
+  menus: Menu[]=[];
+
+  constructor(private menuService:MenuService,public loginService:LoginService){
+
+  }
+
+  ngOnInit(){
+    this.menuService.menuCambio.subscribe(data=>{
+      this.menus=data;
+    })
+  }
 }

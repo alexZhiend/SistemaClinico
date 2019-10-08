@@ -8,14 +8,10 @@
       <input matInput placeholder="DNI" [(ngModel)]="paciente.dnipaciente">
     </mat-form-field>
   
-    <mat-form-field>
-      <input matInput placeholder="Nombres" [(ngModel)]="paciente.nombrespaciente">
+    <mat-form-field class="obs">
+      <input matInput placeholder="Nombres" [(ngModel)]="paciente.nombresyapellidos">
     </mat-form-field>
-  
-    <mat-form-field>
-      <input matInput placeholder="Apellidos" [(ngModel)]="paciente.apellidospaciente">
-    </mat-form-field>
-
+    
     <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" [(ngModel)]="paciente.fechanacimientopaciente">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -34,16 +30,16 @@
       <input matInput placeholder="Distrito" [(ngModel)]="paciente.distritopaciente">
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Direccion" [(ngModel)]="paciente.direccionpaciente">
+    <mat-form-field class="obs">
+      <input matInput placeholder="Dirección" [(ngModel)]="paciente.direccionpaciente">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Telefono" [(ngModel)]="paciente.telefonopaciente">
+      <input matInput placeholder="Teléfono" [(ngModel)]="paciente.telefonopaciente">
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Ocupacion" [(ngModel)]="paciente.ocupacionpaciente">
+    <mat-form-field class="obs">
+      <input matInput placeholder="Ocupación" [(ngModel)]="paciente.ocupacionpaciente">
     </mat-form-field>
     
     <mat-form-field>
@@ -54,11 +50,11 @@
       <input matInput placeholder="Nivel de educación" [(ngModel)]="paciente.niveleducacionpaciente">
     </mat-form-field>
     
-    <mat-form-field>
+    <mat-form-field class="obs">
       <input matInput placeholder="Padre" [(ngModel)]="paciente.datospadrepaciente">
     </mat-form-field>
       
-    <mat-form-field>
+    <mat-form-field class="obs">
       <input matInput placeholder="Madre" [(ngModel)]="paciente.datosmadrepaciente">
     </mat-form-field>
   

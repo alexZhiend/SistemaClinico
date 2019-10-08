@@ -4,12 +4,8 @@
     <input matInput placeholder="DNI" [(ngModel)]="personalmedico.dnipersonalmedico">
   </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Nombres" [(ngModel)]="personalmedico.nombrespersonalmedico">
-  </mat-form-field>
-
-  <mat-form-field>
-      <input matInput placeholder="Apellidos" [(ngModel)]="personalmedico.apellidospersonalmedico">
+  <mat-form-field class="obs">
+    <input matInput placeholder="Nombres y apellidos" [(ngModel)]="personalmedico.nombrespersonalmedico">
   </mat-form-field>
 
   <mat-form-field>
@@ -18,7 +14,7 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="obs">
     <input matInput placeholder="Correo" [(ngModel)]="personalmedico.correopersonalmedico">
   </mat-form-field>
 

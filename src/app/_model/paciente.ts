@@ -3,8 +3,7 @@ import { Tipopaciente } from './tipopaciente';
 export class Paciente{
     hcl: string;
     dnipaciente:string;
-    nombrespaciente: string;
-    apellidospaciente:string;
+    nombresyapellidos: string;
     fechanacimientopaciente:string;
     departamentopaciente:string;
     provinciapaciente:string;

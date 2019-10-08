@@ -1,5 +1,6 @@
+import { TOKEN_NAME } from './../_shared/var.constant';
 import { Categoriaproducto } from './../_model/categoriaproducto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HOST } from '../_shared/var.constant';
 import { Subject } from 'rxjs';
@@ -16,19 +17,31 @@ export class CategoriaproductoService {
   constructor(private http:HttpClient) { }
 
   listarCategoriaProducto(){
-    return this.http.get<Categoriaproducto[]>(this.url)
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Categoriaproducto[]>(this.url, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    })
 }
 
 listarCategoriaproductoId(id: number){
-  return this.http.get<Categoriaproducto>(`${this.url}/${id}`);
+  let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+  return this.http.get<Categoriaproducto>(`${this.url}/${id}`, {
+    headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+  });
 }
 
 registrarCategoriaproducto(categoriaproducto: Categoriaproducto){
-  return this.http.post(this.url, categoriaproducto);
+  let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+  return this.http.post(this.url, categoriaproducto, {
+    headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+  });
 }
 
 modificarCategoriaproducto(categoriaproducto: Categoriaproducto){
-  return this.http.put(this.url, categoriaproducto);
+  let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+  return this.http.put(this.url, categoriaproducto, {
+    headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+  });
 }
 
 }

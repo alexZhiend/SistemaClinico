@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { TOKEN_NAME } from './../_shared/var.constant';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GramPositivo } from './../_model/grampositivo';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -14,18 +15,30 @@ export class GrampositivoService {
   constructor(private http:HttpClient) { }
 
   listarGramPositivo(){
-    return this.http.get<GramPositivo[]>(this.url);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<GramPositivo[]>(this.url, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   listarGramPositivoId(id: number){
-    return this.http.get<GramPositivo>(`${this.url}/${id}`) 
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<GramPositivo>(`${this.url}/${id}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    }) 
   }
 
   registrarGramPositivo(gramPositivo: GramPositivo){
-    return this.http.post(this.url, gramPositivo);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.post(this.url, gramPositivo, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   modificarGramPositivo(gramPositivo: GramPositivo){
-    return this.http.put(this.url, gramPositivo);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.put(this.url, gramPositivo, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 }

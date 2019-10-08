@@ -1,17 +1,23 @@
 <mat-card>Ingrese los datos del examen</mat-card>
-<div class="example-container row">
+<div class="example-container">
+  <mat-form-field style="padding-top: 15px;" class="example-full-width">
+    <input type="text" placeholder="Numero de recibo" required aria-label="Assignee" matInput [formControl]="comprobante"
+      [matAutocomplete]="auto">
+    <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+        {{option.numerorecibocomprobante}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <mat-form-field style="width: 90%;">
+    <input matInput placeholder="paciente" [(ngModel)]="paciente">
+  </mat-form-field>
+
+<div class="row">
   
   <div class="col-sm-6 col-xs-12" >  
     <form  [formGroup]="form" (ngSubmit)="operar()">
-
-      <mat-form-field>
-        <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado"
-          [(value)]="idcomprobantepagoSeleccionado">
-          <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
-            {{ p.numerorecibocomprobante }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
 
       <div hidden="true">
         <mat-form-field>
@@ -35,6 +41,10 @@
 
       <mat-form-field>
         <input matInput placeholder="cristales" required formControlName="cristales" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="cilindros" required formControlName="cilindros" type="string">
       </mat-form-field>
 
       <mat-form-field>
@@ -64,7 +74,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="observaciones" required formControlName="observaciones" type="string">
+        <textarea rows="3" matInput placeholder="observaciones" required formControlName="observaciones" type="string"></textarea>
       </mat-form-field>
 
       <mat-form-field>
@@ -77,7 +87,7 @@
     </form>
   </div>
 
-  <div class="col-sm-6 col-xs-12">
+  <div style="width: 40%;" class="col-sm-6 col-xs-12">
 
     <mat-card class="card">Antibiograma</mat-card>
     
@@ -171,7 +181,7 @@
           </mat-select>
         </mat-form-field>
 
-        <div>
+        <div style="width: 90%;">
           <button style="float:left" mat-raised-button color="accent" (click)="cancelarsub1()">Cancelar</button>
           <button style="float:right" mat-raised-button color="primary" (click)="negativo()">Aceptar</button>
         </div>
@@ -268,7 +278,7 @@
           </mat-select>
         </mat-form-field>
 
-        <div>
+        <div style="width: 90%;">
             <button style="float:left" mat-raised-button color="accent" (click)="cancelarsub1()">Cancelar</button>
             <button style="float:right" mat-raised-button color="primary" (click)="positivo()">Aceptar</button>
         </div>
@@ -277,7 +287,7 @@
     </div>
     </div>
 </div>
-
+</div>
 <div >
     <button style="float: left;"  mat-raised-button color="accent"  (click)="cancelar()">Cancelar</button>
     <button style="float: right;"  mat-raised-button color="primary" [disabled]="form.invalid || form1.invalid || form2.invalid" (click)="operar()">Aceptar</button>

@@ -11,9 +11,10 @@ import { Orina } from 'src/app/_model/orina';
 })
 export class OrinaComponent implements OnInit {
   orinas: Orina[] = [];
-  displayedColumns = ['idanalisisorina','fecha','observaciones','nombrespaciente','apellidospaciente','hcl','acciones'];
+  displayedColumns = ['idanalisisorina','fecha','nombrespaciente','hcl','observaciones','acciones'];
   dataSource: MatTableDataSource<Orina>;
   mensaje: string;
+  orin:string="";
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -60,8 +61,18 @@ ngOnInit() {
       });
     }
     
-    generatepdf(){
-
+    generatepdf(o: Orina){
+      console.log(o.idanalisisorina);
+      this.orinaService.reporteOrinaPaciente(o.idanalisisorina).subscribe(data => {
+        
+  
+        let reader = new FileReader();
+        reader.onload = (e:any)=>{
+          console.log(e.target.result);
+          this.orin = e.target.result; //base64
+        }
+        reader.readAsArrayBuffer(data);
+      });
     }
     
 }

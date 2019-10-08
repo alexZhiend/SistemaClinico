@@ -1,0 +1,101 @@
+<div class="example-container">
+
+<form [formGroup]="form" (ngSubmit)="operar()">
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Paciente" required aria-label="Assignee" matInput [formControl]="paciente"
+      [matAutocomplete]="auto">
+    <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+        {{option.nombresyapellidos}}, DNI: {{option.dnipaciente}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+  <mat-form-field class="field">
+    <input matInput [matDatepicker]="picker" placeholder="Fecha de expedición"
+      [(ngModel)]="historial.fechaexpediciconhistoriaclinica">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input matInput placeholder="Edad" type="number" [(ngModel)]="historial.edad">
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input matInput placeholder="Peso" type="number" [(ngModel)]="historial.peso">
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input matInput placeholder="Talla" type="number" [(ngModel)]="historial.talla">
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input matInput placeholder="Presión arterial" type="number" [(ngModel)]="historial.presionarterial">
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input matInput placeholder="Frecuencia cardíaca" type="number" [(ngModel)]="historial.frecuenciacardiaca">
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input matInput placeholder="Frecuencia respiratoria" type="number" [(ngModel)]="historial.frecuenciarespiratoria">
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input matInput placeholder="Temperatura" type="number" [(ngModel)]="historial.temperatura">
+  </mat-form-field>
+
+  <form [formGroup]="form1" (ngSubmit)="operar()">
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Personal médico" required aria-label="Assignee" matInput [formControl]="personal"
+      [matAutocomplete]="auto1">
+    <mat-autocomplete (optionSelected)="onSelectionChanged1($event)" #auto1="matAutocomplete"
+      [displayWith]="displayFn1">
+      <mat-option *ngFor="let option of filteredOptions1 | async" [(value)]="option">
+        {{option.nombrespersonalmedico}}, DNI: {{option.especialidad.nombreespecialidad}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+  <mat-form-field class="field" >
+    <mat-select placeholder="Servicio medico" [(value)]="serviciomedicoseleccionado">
+      <mat-option *ngFor="let p of serviciosmedicos" [value]="p.denominacionserviciomedico">
+        {{ p.denominacionserviciomedico }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="obs">
+    <textarea rows="3" matInput placeholder="Malestares" [(ngModel)]="historial.malestares"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="obs">
+    <textarea rows="3" matInput placeholder="Anamnesis" [(ngModel)]="historial.anamnesis"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="obs">
+    <textarea rows="3" matInput placeholder="Evaluación" [(ngModel)]="historial.evaluacion"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="obs">
+    <textarea rows="3" matInput placeholder="Diagnóstico" [(ngModel)]="historial.diagnostico"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="obs">
+    <textarea rows="3" matInput placeholder="Tratamiento" [(ngModel)]="historial.tratamiento"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="obs">
+    <textarea rows="3" matInput placeholder="Examenes" [(ngModel)]="historial.examenes"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="obs">
+    <textarea rows="5" matInput placeholder="Reconsulta" [(ngModel)]="historial.reconsulta"></textarea>
+  </mat-form-field>
+</div>
+
+<button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+<button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>

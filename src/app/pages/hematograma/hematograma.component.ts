@@ -1,12 +1,14 @@
+import { Observable } from 'rxjs';
 import { HematogramaC } from './../../_model/hematogramaC';
 import { ComprobantepagoService } from './../../_service/comprobantepago.service';
 import { ComprobantePago } from './../../_model/comprobantepago';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DialogHematogramaComponent } from './dialog-hematograma/dialog-hematograma.component';
 import { HematogramaService } from './../../_service/hematograma.service';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar, MatAutocompleteSelectedEvent } from '@angular/material';
 import { Hematograma } from './../../_model/hematograma';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hematograma',
@@ -15,7 +17,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class HematogramaComponent implements OnInit {
   hematogramas: Hematograma[] = [];
-  displayedColumns = ['idhematograma','fecha','tipo','observaciones','nombrespaciente','apellidospaciente','hcl','acciones'];
+  displayedColumns = ['idhematograma','fecha','tipo','nombrespaciente','hcl','acciones'];
   dataSource: MatTableDataSource<Hematograma>;
   mensaje: string;
   
@@ -23,6 +25,13 @@ export class HematogramaComponent implements OnInit {
   idcomprobantepagoSeleccionado: number;
   hematograma: Hematograma;
   
+  comprobante = new FormControl();
+  filteredOptions: Observable<ComprobantePago[]>;
+  comprobanteseleccionado= new ComprobantePago();
+  paciente:string;
+  hem:string="";
+
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -77,6 +86,33 @@ ngOnInit() {
       }); 
 
       this.listarComprobante();
+
+      this.filteredOptions = this.comprobante.valueChanges.pipe(
+        startWith(),
+        map(value => typeof value === 'string' ? value : value.numerorecibocomprobante),
+        map(numerorecibocomprobante => numerorecibocomprobante ? this._filter(numerorecibocomprobante) : this.comprobantepagos.slice())
+      );
+  
+    }
+
+    displayFn(comprobantepago?: ComprobantePago): number | undefined {
+      return comprobantepago ? comprobantepago.numerorecibocomprobante : undefined;
+    }
+
+    private _filter(numerorecibocomprobante: number): ComprobantePago[] {
+      const filterValue = numerorecibocomprobante.toString().toLowerCase();
+      return this.comprobantepagos.filter(comprobante => comprobante.numerorecibocomprobante.toString().toLowerCase().indexOf(filterValue) === 0);
+    }
+  
+    onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+      this.comprobanteseleccionado = event.option.value;
+      if (this.comprobanteseleccionado.paciente==null) {
+        this.paciente="Paciente externo";
+      }else{
+        this.paciente=this.comprobanteseleccionado.paciente.nombresyapellidos;
+        console.log(this.comprobanteseleccionado);
+      }
+  
     }
 
     listarComprobante(){
@@ -88,7 +124,7 @@ ngOnInit() {
   
     operar(){
       let comprobante = new ComprobantePago();
-      comprobante.idcomprobantepago=this.form.value['idcomprobantepagoSeleccionado'];
+      comprobante.idcomprobantepago=this.comprobanteseleccionado.idcomprobantepago;
       console.log(comprobante);
       this.hematograma.comprobantepago=comprobante;
       this.hematograma.hematies=this.form.value['hematies'];
@@ -116,9 +152,10 @@ ngOnInit() {
             this.hematogramaService.mensaje.next("Se registró correctamente")
           });
           this.form.reset();
+          this.comprobante.setValue('');
         });
       }else{
-        this.hematogramaService.mensaje.next("falta algun dato requerido")
+        this.hematogramaService.mensaje.next("Falta algun dato requerido")
       }   
   }
 
@@ -148,7 +185,18 @@ ngOnInit() {
     }
     
     
-    generatepdf(){
+    generatepdf(h: Hematograma){
+      console.log(h.idhematograma);
+      this.hematogramaService.reporteAglutinacionHematograma(h.idhematograma).subscribe(data => {
+        
+
+        let reader = new FileReader();
+        reader.onload = (e:any)=>{
+          console.log(e.target.result);
+          this.hem = e.target.result; //base64
+        }
+        reader.readAsArrayBuffer(data);
+      });
     }
     
 }

@@ -1,5 +1,6 @@
+import { Observable } from 'rxjs';
 
-import { MatTableDataSource, MatSnackBar, MatSelectChange, MatOption } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatSelectChange, MatOption, MatAutocompleteSelectedEvent } from '@angular/material';
 import { DetalleegService } from './../../_service/detalleeg.service';
 import { ComprobantePago } from 'src/app/_model/comprobantepago';
 import { ComprobantepagoService } from './../../_service/comprobantepago.service';
@@ -8,6 +9,7 @@ import { Examenesg } from './../../_model/examenesg';
 import { Component, OnInit } from '@angular/core';
 import { DetalleExamen } from 'src/app/_model/detalleeg';
 import { FormGroup, FormControl } from '@angular/forms';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-detalleeg',
@@ -34,6 +36,17 @@ export class DetalleegComponent implements OnInit {
   form: FormGroup;
   form2: FormGroup;
   numero:number;
+  paciente:string;
+
+
+  comprobante = new FormControl();
+  filteredOptions: Observable<ComprobantePago[]>;
+  comprobanteseleccionado= new ComprobantePago();
+
+  examengeneral = new FormControl();
+  filteredOptions1: Observable<Examenesg[]>;
+  examenseleccionado= new Examenesg();
+
 
   constructor(private examenesgService: ExamenesgService,
     private comprobantepagoService: ComprobantepagoService,
@@ -64,7 +77,18 @@ export class DetalleegComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.lista);
     });
 
-    this.numero=1;
+    this.filteredOptions = this.comprobante.valueChanges.pipe(
+      startWith(),
+      map(value => typeof value === 'string' ? value : value.numerorecibocomprobante),
+      map(numerorecibocomprobante => numerorecibocomprobante ? this._filter(numerorecibocomprobante) : this.comprobantepagos.slice())
+    );
+
+    this.filteredOptions1 = this.examengeneral.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.denominacion),
+      map(denominacion => denominacion ? this._filter1(denominacion) : this.examenes.slice())
+    );
+ 
   }
 
   listarexamen() {
@@ -78,13 +102,50 @@ export class DetalleegComponent implements OnInit {
     })
   }
 
+
+  displayFn(comprobantepago?: ComprobantePago): number | undefined {
+    return comprobantepago ? comprobantepago.numerorecibocomprobante : undefined;
+  }
+
+  displayFn1(examen?: Examenesg): string | undefined {
+    return examen ? examen.denominacion : undefined;
+  }
+
+  private _filter(numerorecibocomprobante: number): ComprobantePago[] {
+    const filterValue = numerorecibocomprobante.toString().toLowerCase();
+    return this.comprobantepagos.filter(comprobante => comprobante.numerorecibocomprobante.toString().toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  private _filter1(denominacion: string): Examenesg[] {
+    const filterValue = denominacion.toLowerCase();
+    return this.examenes.filter(examen => examen.denominacion.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    this.comprobanteseleccionado = event.option.value;
+    if (this.comprobanteseleccionado.paciente==null) {
+      this.paciente="Paciente externo";
+    }else{
+      this.paciente=this.comprobanteseleccionado.paciente.nombresyapellidos;
+      console.log(this.comprobanteseleccionado);
+    }
+
+  }
+
+  onSelectionChanged1(event: MatAutocompleteSelectedEvent) {
+    this.examenseleccionado = event.option.value;
+    this.nombreseleccionado=this.examenseleccionado.denominacion;
+    console.log(this.examenseleccionado)
+  }
+
   agregar() {
 
     let comprobante = new ComprobantePago();
-    comprobante.idcomprobantepago = this.form2.value['idcomprobantepagoSeleccionado'];
+    comprobante.idcomprobantepago = this.comprobanteseleccionado.idcomprobantepago;
 
     let exameng = new Examenesg();
-    exameng.idexamenesg = this.form.value['idexamengSeleccionado'];
+    exameng.idexamenesg = this.examenseleccionado.idexamenesg;
 
     this.examen.examenesg = exameng;
     this.examen.comprobantepago = comprobante;
@@ -104,6 +165,7 @@ export class DetalleegComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.lista);
 
         this.form.reset();
+        this.examengeneral.setValue('');
       });
 
     } else {

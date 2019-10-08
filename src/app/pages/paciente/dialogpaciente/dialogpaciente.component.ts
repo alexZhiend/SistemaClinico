@@ -27,8 +27,7 @@ ngOnInit() {
       this.listarTipopaciente();
       this.paciente = new Paciente();
       this.paciente.hcl=this.data.hcl;
-      this.paciente.nombrespaciente = this.data.nombrespaciente;
-      this.paciente.apellidospaciente = this.data.apellidospaciente;
+      this.paciente.nombresyapellidos = this.data.nombresyapellidos;
       this.paciente.dnipaciente = this.data.dnipaciente;
       this.paciente.fechanacimientopaciente = this.data.fechanacimientopaciente;
       this.paciente.departamentopaciente = this.data.departamentopaciente;
@@ -57,11 +56,10 @@ ngOnInit() {
   
     operar(){
       
-      if(this.paciente != null && this.paciente.hcl != null){
+      if(this.paciente !=null && this.paciente.hcl != null){
 
         let tipopaciente = new Tipopaciente();
         tipopaciente.idtipopaciente= this.idTipopacienteSeleccionado;
-
         this.paciente.tipopaciente=tipopaciente;
 
         this.pacienteService.modificarpaciente(this.paciente).subscribe(data => {
@@ -72,29 +70,38 @@ ngOnInit() {
             });
           
         });
+
       }else{
 
         let tipopaciente = new Tipopaciente();
         tipopaciente.idtipopaciente= this.idTipopacienteSeleccionado;
-
         this.paciente.tipopaciente=tipopaciente;
 
+        if (this.paciente.hcl !=null&&this.paciente.nombresyapellidos!=null&&this.paciente.departamentopaciente!=null&&this.paciente.direccionpaciente!=null
+          &&this.paciente.distritopaciente!=null&&this.paciente.dnipaciente!=null&&this.paciente.estadocivilpaciente!=null&&this.paciente.fechanacimientopaciente!=null&&
+          this.paciente.provinciapaciente!=null&&this.paciente.tipopaciente != null&&this.paciente.ocupacionpaciente!=null &&this.paciente.niveleducacionpaciente!=null &&this.paciente.tipopaciente!=null) {
+            this.pacienteService.registrarpaciente(this.paciente).subscribe(data => {
+              this.pacienteService.listarpaciente().subscribe(pacientes => {
+                this.pacienteService.pacienteCambio.next(pacientes);
+                this.pacienteService.mensaje.next("Se registró correctamente");
+              });
+            
+          });
+          this.dialogRef.close();
+            
+        }else{
+          this.pacienteService.mensaje.next('Falta algún dato requerido del paciente')
 
-        this.pacienteService.registrarpaciente(this.paciente).subscribe(data => {
-          
-            this.pacienteService.listarpaciente().subscribe(pacientes => {
-              this.pacienteService.pacienteCambio.next(pacientes);
-              this.pacienteService.mensaje.next("Se registró correctamente");
-            });
-          
-        });
+        }
+
+
       }
-      this.dialogRef.close();
+      
     }
   
     cancelar(){
       this.dialogRef.close();
-      this.pacienteService.mensaje.next('se canceló el procedimiento');
+      this.pacienteService.mensaje.next('Se canceló el procedimiento');
     }
     
 

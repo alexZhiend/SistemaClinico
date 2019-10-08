@@ -38,3 +38,8 @@ margin: 25px;
   float: right;
   padding-left: 25px;
 }
+
+.example-full-width{
+  padding-left: 25px;
+  width: 50%;
+}

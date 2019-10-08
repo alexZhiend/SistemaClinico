@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { TOKEN_NAME } from './../_shared/var.constant';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Orina } from '../_model/orina';
@@ -16,19 +17,38 @@ export class OrinaService {
   constructor(private http:HttpClient) { }
 
   listarOrina(){
-    return this.http.get<Orina[]>(this.url);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Orina[]>(this.url, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   listarOrinaId(id: number){
-    return this.http.get<Orina>(`${this.url}/${id}`) 
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Orina>(`${this.url}/${id}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    }) 
   }
 
   registrarOrina(orina: Orina){
-    return this.http.post(this.url, orina);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.post(this.url, orina, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   modificarOrina(orina: Orina){
-    return this.http.put(this.url, orina);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.put(this.url, orina, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
+  reporteOrinaPaciente(id: number) {    
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get(`${this.url}/reporteOrina/${id}`, {
+      responseType: 'blob',
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
 }

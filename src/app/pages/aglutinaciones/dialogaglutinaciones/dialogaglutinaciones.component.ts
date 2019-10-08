@@ -1,10 +1,12 @@
+import { Observable } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AglutinacionService } from './../../../_service/aglutinacion.service';
 import { ComprobantepagoService } from './../../../_service/comprobantepago.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatAutocompleteSelectedEvent } from '@angular/material';
 import { ComprobantePago } from 'src/app/_model/comprobantepago';
 import { Aglutinacion } from './../../../_model/aglutinaciones';
 import { Component, OnInit, Inject } from '@angular/core';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dialogaglutinaciones',
@@ -19,6 +21,12 @@ export class DialogaglutinacionesComponent implements OnInit {
 
   fechaSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
+
+  comprobante = new FormControl();
+  filteredOptions: Observable<ComprobantePago[]>;
+  comprobanteseleccionado= new ComprobantePago();
+  paciente:string;
+
   constructor(public dialogRef: MatDialogRef<DialogaglutinacionesComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Aglutinacion,
               private comprobantepagoService:ComprobantepagoService,
@@ -39,17 +47,45 @@ export class DialogaglutinacionesComponent implements OnInit {
 
   ngOnInit() {
     this.listarComprobante();
+
+    
+    this.filteredOptions = this.comprobante.valueChanges.pipe(
+      startWith(),
+      map(value => typeof value === 'string' ? value : value.numerorecibocomprobante),
+      map(numerorecibocomprobante => numerorecibocomprobante ? this._filter(numerorecibocomprobante) : this.comprobantepagos.slice())
+    );
   }
 
+  displayFn(comprobantepago?: ComprobantePago): number | undefined {
+    return comprobantepago ? comprobantepago.numerorecibocomprobante : undefined;
+  }
+
+  private _filter(numerorecibocomprobante: number): ComprobantePago[] {
+    const filterValue = numerorecibocomprobante.toString().toLowerCase();
+    return this.comprobantepagos.filter(comprobante => comprobante.numerorecibocomprobante.toString().toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  
   listarComprobante(){
     this.comprobantepagoService.listarComprobantePago().subscribe(data => { 
       this.comprobantepagos=data;
     })
   }
 
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    this.comprobanteseleccionado = event.option.value;
+    if (this.comprobanteseleccionado.paciente==null) {
+      this.paciente="Paciente externo";
+    }else{
+      this.paciente=this.comprobanteseleccionado.paciente.nombresyapellidos;
+      console.log(this.comprobanteseleccionado);
+    }
+
+  }
+
   operar(){
       let comprobante = new ComprobantePago();
-      comprobante.idcomprobantepago=this.form.value['idcomprobantepagoSeleccionado'];
+      comprobante.idcomprobantepago=this.comprobanteseleccionado.idcomprobantepago;
       console.log(comprobante);
       this.aglutinacion.comprobantepago=comprobante;
       
@@ -70,12 +106,12 @@ export class DialogaglutinacionesComponent implements OnInit {
           this.dialogRef.close();
         });
       }else{
-        this.aglutinacionService.mensaje.next("falta algun dato requerido")
+        this.aglutinacionService.mensaje.next("Falta algún dato requerido")
       }   
   }
 
   cancelar(){
     this.dialogRef.close();
-    this.aglutinacionService.mensaje.next("Se cancelo el procedimiento")
+    this.aglutinacionService.mensaje.next("Se cancelÓ el procedimiento")
   }
 }

@@ -1,0 +1,184 @@
+<mat-card>Ingrese los datos del examen</mat-card>
+<div  class="example-container">
+<mat-form-field style="padding-top: 15px;" class="example-full-width">
+  <input type="text" placeholder="Numero de recibo" required aria-label="Assignee" matInput [formControl]="comprobante"
+    [matAutocomplete]="auto">
+  <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+      {{option.numerorecibocomprobante}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<mat-form-field style="width: 90%;">
+  <input matInput placeholder="paciente" [(ngModel)]="paciente">
+</mat-form-field>
+
+
+<mat-form-field>
+    <input matInput [matDatepicker]="picker" required [(ngModel)]="fechaseleccionada" placeholder="Fecha">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Análisis de heces</ng-template>
+
+      <div hidden="true">
+        <mat-form-field>
+          <input matInput placeholder="id" formControlName="idanalisisheces">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <input matInput placeholder="Color" required formControlName="color" type="string">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Aspecto" formControlName="aspecto" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Sangre" formControlName="sangre" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Mucosidad" formControlName="mucosidad" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Leucocitos" formControlName="leucocitos">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Hematies" formControlName="hematies" >
+      </mat-form-field>
+
+      <mat-form-field class="obs">
+        <textarea matInput placeholder="Parasitos" formControlName="parasitos"
+          type="string"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="obs">
+        <textarea matInput placeholder="Observaciones" formControlName="observaciones"
+          type="string"></textarea>
+      </mat-form-field>
+
+      <div>
+          <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Terminar</button>
+          <button style="float:right" mat-raised-button matStepperNext color="primary" (click)="operar()">Aceptar</button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step>
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Análisis de heces</ng-template>
+
+      <div hidden="true">
+          <mat-form-field>
+            <input matInput placeholder="id" formControlName="idanalisisheces">
+          </mat-form-field>
+        </div>
+  
+        <mat-form-field>
+          <input matInput placeholder="Color" required formControlName="color" type="string">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Aspecto" formControlName="aspecto" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Sangre" formControlName="sangre" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Mucosidad" formControlName="mucosidad" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Leucocitos" formControlName="leucocitos">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Hematies" formControlName="hematies" >
+        </mat-form-field>
+
+        <mat-form-field class="obs">
+            <textarea matInput placeholder="Parasitos" formControlName="parasitos"
+              type="string"></textarea>
+          </mat-form-field>
+  
+        <mat-form-field class="obs">
+          <textarea matInput placeholder="Observaciones" formControlName="observaciones"
+            type="string"></textarea>
+        </mat-form-field>
+  
+      <div>
+          <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Terminar</button>
+          <button style="float:right" mat-raised-button matStepperNext color="primary" (click)="operar1()">Aceptar</button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <ng-template matStepLabel>3º Análisis de heces</ng-template>
+    <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Análisis de heces</ng-template>
+  
+        <div hidden="true">
+            <mat-form-field>
+              <input matInput placeholder="id" formControlName="idanalisisheces">
+            </mat-form-field>
+          </div>
+    
+          <mat-form-field>
+            <input matInput placeholder="Color" required formControlName="color" type="string">
+          </mat-form-field>
+    
+          <mat-form-field>
+            <input matInput placeholder="Aspecto" formControlName="aspecto" required>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <input matInput placeholder="Sangre" formControlName="sangre" required>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <input matInput placeholder="Mucosidad" formControlName="mucosidad" required>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <input matInput placeholder="Leucocitos" formControlName="leucocitos">
+          </mat-form-field>
+    
+          <mat-form-field>
+            <input matInput placeholder="Hematies" formControlName="hematies" >
+          </mat-form-field>
+
+          <mat-form-field class="obs">
+              <textarea matInput placeholder="Parasitos" formControlName="parasitos"
+                type="string"></textarea>
+            </mat-form-field>
+    
+          <mat-form-field class="obs">
+            <textarea matInput placeholder="Observaciones" formControlName="observaciones"
+              type="string"></textarea>
+          </mat-form-field>
+    
+ 
+        <div>
+            <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Terminar</button>
+            <button style="float:right" mat-raised-button color="primary" (click)="operar2()">Aceptar</button>
+        </div>
+      </form>
+
+  </mat-step>
+</mat-horizontal-stepper>
+</div>

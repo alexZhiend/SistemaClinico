@@ -1,34 +1,43 @@
-<div>
+<mat-card>Laboratorio clínico - examenes generales</mat-card>
+<div style="padding-top: 25px;">
 
   <form class="example-container" [formGroup]="form2" (ngSubmit)="agregar()">
-      <mat-form-field style="display: block">
-          <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado"
-            [(value)]="idcomprobantepagoSeleccionado">
-            <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
-              {{ p.numerorecibocomprobante }}
+
+      <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Numero de recibo" required aria-label="Assignee" matInput [formControl]="comprobante"
+            [matAutocomplete]="auto">
+          <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+              {{option.numerorecibocomprobante}}
             </mat-option>
-          </mat-select>
-        </mat-form-field>   
+          </mat-autocomplete>
+        </mat-form-field>
   </form>
+
+  <mat-form-field style="padding-left: 25px; width: 50%;">
+      <input matInput placeholder="paciente" [(ngModel)]="paciente">
+  </mat-form-field>
 
   <form class="example-container" [formGroup]="form" (ngSubmit)="agregar()">
 
-    <mat-form-field>
-      <mat-select (selectionChange)="prueba($event)" placeholder="Examen" required formControlName="idexamengSeleccionado"
-        [(value)]="idexamengSeleccionado">
-        <mat-option *ngFor="let p of examenes" [value]="p.idexamenesg">
-        <span> {{p.denominacion}} </span>
+    <mat-form-field class="observacion">
+      <input type="text" placeholder="Examen médico" required aria-label="Assignee" matInput [formControl]="examengeneral"
+        [matAutocomplete]="auto1">
+      <mat-autocomplete (optionSelected)="onSelectionChanged1($event)" #auto1="matAutocomplete"
+        [displayWith]="displayFn1">
+        <mat-option *ngFor="let option of filteredOptions1 | async" [(value)]="option">
+          {{option.denominacion}}
         </mat-option>
-      </mat-select>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="resultado" >
-      <input type="text" matInput formControlName="resultado" placeholder="Resultados" required>
+      <textarea type="text" matInput formControlName="resultado" placeholder="Resultados" required></textarea>
     </mat-form-field>
 
 
     <mat-form-field class="observacion">
-      <input type="text" matInput formControlName="observaciones" placeholder="Observaciones" required>
+      <textarea type="text" matInput formControlName="observaciones" placeholder="Observaciones"></textarea>
     </mat-form-field>
 
     <mat-form-field>
@@ -51,7 +60,7 @@
 
   <div>
 
-    <mat-table [dataSource]="dataSource" matSort>
+    <mat-table class="example-container mat-elevation-z8" [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="examen">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Examen</mat-header-cell>

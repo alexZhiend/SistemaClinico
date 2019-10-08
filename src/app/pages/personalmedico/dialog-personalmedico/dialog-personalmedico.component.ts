@@ -81,7 +81,7 @@ export class DialogPersonalmedicoComponent implements OnInit {
           
             this.personalmedicoService.listarPersonalMedico().subscribe(personalmedicos => {
               this.personalmedicoService.personalCambio.next(personalmedicos);
-              this.personalmedicoService.mensaje.next("Se modificó correctamente");
+              this.personalmedicoService.mensaje.next("Se modificaron correctamente los datos del personal médico");
             });
           
         });
@@ -95,22 +95,28 @@ export class DialogPersonalmedicoComponent implements OnInit {
         this.personalmedico.tipopersonalmedico=tipopersonalmedico;
         this.personalmedico.especialidad=especialidad;
 
+        if (this.personalmedico.dnipersonalmedico !=null&& this.personalmedico.nombrespersonalmedico!=null&& this.personalmedico.fechanacimientopersonalmedico!=null&& this.personalmedico.tipopersonalmedico
+          !=null) {
+            this.personalmedicoService.registrarPersonalMedico(this.personalmedico).subscribe(data => {
+          
+              this.personalmedicoService.listarPersonalMedico().subscribe(personalemedicos => {
+                this.personalmedicoService.personalCambio.next(personalemedicos);
+                this.personalmedicoService.mensaje.next("Se registró correctamente");
+              });
+            
+          });
+          this.dialogRef.close();
+        }else{
+          this.personalmedicoService.mensaje.next('Falta algún dato requerido del personal médico');
+        }
 
-        this.personalmedicoService.registrarPersonalMedico(this.personalmedico).subscribe(data => {
-          
-            this.personalmedicoService.listarPersonalMedico().subscribe(personalemedicos => {
-              this.personalmedicoService.personalCambio.next(personalemedicos);
-              this.personalmedicoService.mensaje.next("Se registró correctamente");
-            });
-          
-        });
       }
-      this.dialogRef.close();
+     
     }
   
     cancelar(){
       this.dialogRef.close();
-      this.personalmedicoService.mensaje.next('se canceló el procedimiento');
+      this.personalmedicoService.mensaje.next('Se canceló el procedimiento');
     }
     
 

@@ -27,13 +27,8 @@
 
     <ng-container matColumnDef="nombrespaciente">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.nombrespaciente}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.nombresyapellidos}} </mat-cell>
     </ng-container>    
-
-    <ng-container matColumnDef="apellidospaciente">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.apellidospaciente}} </mat-cell>
-    </ng-container>
 
     <ng-container matColumnDef="hcl">
       <mat-header-cell *matHeaderCellDef mat-sort-header> HCL </mat-header-cell>
@@ -43,7 +38,7 @@
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">        
-        <button mat-button color="primary" (click)="generatepdf()">
+        <button mat-button color="primary" (click)="generatepdf(row)">
           <mat-icon>picture_as_pdf</mat-icon>
         </button>
       </mat-cell>
@@ -62,3 +57,5 @@
 <button mat-fab color="accent" (click)="openDialog(row)" style="float: right; margin-right: 20px">
   <mat-icon>create</mat-icon>
 </button>
+<div style="padding: 50px;"></div>
+<pdf-viewer  [src]="orin" [external-link-target]="'blank'" [render-text]="true"  style="display: block;"></pdf-viewer>

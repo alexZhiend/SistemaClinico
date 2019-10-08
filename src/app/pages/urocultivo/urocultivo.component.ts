@@ -11,9 +11,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class UrocultivoComponent implements OnInit {
   urocultivos: Urocultivo[] = [];
-  displayedColumns = ['idurocultivo','fecha','observaciones','nombrespaciente','apellidospaciente','hcl','acciones'];
+  displayedColumns = ['idurocultivo','fecha','nombrespaciente','hcl','observaciones','acciones'];
   dataSource: MatTableDataSource<Urocultivo>;
   mensaje: string;
+  uro:string="";
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -58,8 +59,30 @@ export class UrocultivoComponent implements OnInit {
         data: pro      
       });
     }
-    
-    generatepdf(){
+
+    generatepdf(u: Urocultivo){
+
+      if (u.antibiograma=="positivo") {
+        this.urocultivoService.reporteUrocultivoP(u.idurocultivo).subscribe(data => {    
+
+          let reader = new FileReader();
+          reader.onload = (e:any)=>{
+            console.log(e.target.result);
+            this.uro = e.target.result; //base64
+          }
+          reader.readAsArrayBuffer(data);
+        });
+      }
+      else{
+        this.urocultivoService.reporteUrocultivoN(u.idurocultivo).subscribe(data => {    
+          let reader = new FileReader();
+          reader.onload = (e:any)=>{
+            console.log(e.target.result);
+            this.uro = e.target.result; //base64
+          }
+          reader.readAsArrayBuffer(data);
+        });
+      }
 
     }
     

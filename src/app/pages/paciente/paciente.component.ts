@@ -12,7 +12,7 @@ import { DialogpacienteComponent } from './dialogpaciente/dialogpaciente.compone
 export class PacienteComponent implements OnInit {
 
   pacientes: Paciente[] = [];
-  displayedColumns = ['hcl', 'dnipaciente', 'nombrespaciente', 'apellidospaciente','tipopaciente','acciones'];
+  displayedColumns = ['hcl', 'dnipaciente', 'nombresyapellidos','tipopaciente','acciones'];
   dataSource: MatTableDataSource<Paciente>;
   mensaje: string;
 
@@ -53,7 +53,7 @@ ngOnInit() {
   openDialog(paciente: Paciente): void {
     let pro = paciente != null ? paciente : new Paciente();
     let dialogRef = this.dialog.open(DialogpacienteComponent, {
-      width: '500px',   
+      width: '600px',   
       disableClose: true,   
       
       data: pro      

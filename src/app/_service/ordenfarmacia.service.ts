@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { TOKEN_NAME } from './../_shared/var.constant';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HOST } from '../_shared/var.constant';
@@ -16,19 +17,31 @@ export class OrdenfarmaciaService {
   constructor(private http:HttpClient) { }
 
   listarOrdenFarmacia(){
-    return this.http.get<OrdenFarmacia[]>(this.url);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<OrdenFarmacia[]>(this.url, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   listarOrdenFarmaciaId(){
-    return this.http.get<OrdenFarmacia>(`${HOST}/ordenfarmacia/ultimo`) 
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<OrdenFarmacia>(`${HOST}/ordenfarmacia/ultimo`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    }) 
   }
 
   registrarOrdenFarmacia(ordenFarmacia: OrdenFarmacia){
-    return this.http.post(this.url, ordenFarmacia);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.post(this.url, ordenFarmacia, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   modificarOrdenFarmacia(ordenFarmacia: OrdenFarmacia){
-    return this.http.put(this.url, ordenFarmacia);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.put(this.url, ordenFarmacia, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
 }

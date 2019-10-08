@@ -1,14 +1,16 @@
+import { Observable } from 'rxjs';
 import { GrampositivoService } from './../../../_service/grampositivo.service';
 import { GramnegativoService } from './../../../_service/gramnegativo.service';
 import { GramPositivo } from './../../../_model/grampositivo';
 import { GramNegativo } from './../../../_model/gramnegativo';
 import { UrocultivoService } from './../../../_service/urocultivo.service';
 import { ComprobantepagoService } from './../../../_service/comprobantepago.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatSelectChange, MatOption } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatSelectChange, MatOption, MatAutocompleteSelectedEvent } from '@angular/material';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ComprobantePago } from 'src/app/_model/comprobantepago';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Urocultivo } from 'src/app/_model/urocultivo';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dialogurocultivo',
@@ -40,6 +42,12 @@ export class DialogurocultivoComponent implements OnInit {
   negativo1: GramNegativo;
   positivo1: GramPositivo;
   llave:string;
+
+  comprobante = new FormControl();
+  filteredOptions: Observable<ComprobantePago[]>;
+  comprobanteseleccionado= new ComprobantePago();
+  paciente:string;
+
   constructor(public dialogRef: MatDialogRef<DialogurocultivoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Urocultivo,
     private comprobantepagoService:ComprobantepagoService,
@@ -59,6 +67,7 @@ export class DialogurocultivoComponent implements OnInit {
           'cepiteliales': new FormControl(''),
           'cristales': new FormControl(''),
           'germenes': new FormControl(''),
+          'cilindros':new FormControl(''),
           'otros': new FormControl(''),
           'numero': new FormControl(0),
           'antibiogramaSeleccionado': new FormControl(null),
@@ -98,8 +107,33 @@ export class DialogurocultivoComponent implements OnInit {
 
   ngOnInit() {
     this.listarComprobante();
+
+    this.filteredOptions = this.comprobante.valueChanges.pipe(
+      startWith(),
+      map(value => typeof value === 'string' ? value : value.numerorecibocomprobante),
+      map(numerorecibocomprobante => numerorecibocomprobante ? this._filter(numerorecibocomprobante) : this.comprobantepagos.slice())
+    );
    }
 
+   displayFn(comprobantepago?: ComprobantePago): number | undefined {
+    return comprobantepago ? comprobantepago.numerorecibocomprobante : undefined;
+  }
+
+  private _filter(numerorecibocomprobante: number): ComprobantePago[] {
+    const filterValue = numerorecibocomprobante.toString().toLowerCase();
+    return this.comprobantepagos.filter(comprobante => comprobante.numerorecibocomprobante.toString().toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    this.comprobanteseleccionado = event.option.value;
+    if (this.comprobanteseleccionado.paciente==null) {
+      this.paciente="Paciente externo";
+    }else{
+      this.paciente=this.comprobanteseleccionado.paciente.nombresyapellidos;
+      console.log(this.comprobanteseleccionado);
+    }
+
+  }
   
   listarComprobante(){
     this.comprobantepagoService.listarComprobantePago().subscribe(data => { 
@@ -126,7 +160,7 @@ export class DialogurocultivoComponent implements OnInit {
 cancelarsub1(){
   this.form1.reset();
   this.form2.reset();
-  this.urocultivoService.mensaje.next("Se cancelo el procedimiento")
+  this.urocultivoService.mensaje.next("Se canceló el procedimiento")
 }
 
 
@@ -151,7 +185,7 @@ positivo(){
     });
     
   }else{
-    this.grampositivoService.mensaje.next("falta algun dato requerido del antibiograma");
+    this.grampositivoService.mensaje.next("Falta algún dato requerido del antibiograma");
   }
 }
 
@@ -175,25 +209,26 @@ negativo(){
     });
     
   }else{
-    this.gramnegativoService.mensaje.next("falta algun dato requerido del antibiograma");
+    this.gramnegativoService.mensaje.next("Falta algún dato requerido del antibiograma");
   }
 }
 
 
 cancelar(){
   this.dialogRef.close();
-  this.urocultivoService.mensaje.next("Se cancelo el procedimiento")
+  this.urocultivoService.mensaje.next("Se canceló el procedimiento")
 }
 
 operar(){
   let comprobante = new ComprobantePago();
-  comprobante.idcomprobantepago=this.form.value['idcomprobantepagoSeleccionado'];
+  comprobante.idcomprobantepago=this.comprobanteseleccionado.idcomprobantepago;
   console.log(comprobante);
   this.urocultivo.comprobantepago=comprobante;
   this.urocultivo.leucocitos=this.form.value['leucocitos'];
   this.urocultivo.hematies=this.form.value['hematies'];
   this.urocultivo.cepiteliales=this.form.value['cepiteliales'];
   this.urocultivo.cristales=this.form.value['cristales'];
+  this.urocultivo.cilindros=this.form.value['cilindros'];
   this.urocultivo.germenes=this.form.value['germenes'];
   this.urocultivo.otros=this.form.value['otros'];
   this.urocultivo.numero=this.form.value['numero'];

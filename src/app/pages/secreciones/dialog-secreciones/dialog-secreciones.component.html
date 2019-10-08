@@ -1,14 +1,22 @@
 <mat-card>Ingrese los datos del examen</mat-card>
 
-<form class="example-container" [formGroup]="form">
+<div class="example-container">
 
-  <mat-form-field>
-    <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado" [(value)]="idcomprobantepagoSeleccionado">
-      <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
-        {{ p.numerorecibocomprobante }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<mat-form-field style="padding-top: 15px;" class="example-full-width">
+  <input type="text" placeholder="Numero de recibo" required aria-label="Assignee" matInput [formControl]="comprobante"
+    [matAutocomplete]="auto">
+  <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+      {{option.numerorecibocomprobante}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<mat-form-field style="width: 90%;">
+  <input matInput placeholder="paciente" [(ngModel)]="paciente">
+</mat-form-field>
+
+<form  [formGroup]="form">
 
 <div hidden="true">
   <mat-form-field>
@@ -24,12 +32,15 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Medico" required formControlName="nombrespersonalmedico" [(value)]="nombrespersonalmedico">
-      <mat-option *ngFor="let p of medicos" [value]="p.apellidospersonalmedico +', '+ p.nombrespersonalmedico">
-          {{p.apellidospersonalmedico}}, {{ p.nombrespersonalmedico }}            
+  <mat-form-field style="width: 90%;">
+    <input type="text" placeholder="Personal médico" required aria-label="Assignee" matInput [formControl]="personal"
+      [matAutocomplete]="auto1">
+    <mat-autocomplete (optionSelected)="onSelectionChanged1($event)" #auto1="matAutocomplete"
+      [displayWith]="displayFn1">
+      <mat-option *ngFor="let option of filteredOptions1 | async" [(value)]="option">
+        {{option.nombrespersonalmedico}}, DNI: {{option.especialidad.nombreespecialidad}}
       </mat-option>
-    </mat-select>
+    </mat-autocomplete>
   </mat-form-field>
 
   <mat-form-field>
@@ -119,7 +130,7 @@
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field style="width: 90%;">
     <input matInput placeholder="Observaciones" required formControlName="observaciones"
       type="string" >
   </mat-form-field>
@@ -131,7 +142,7 @@
     </mat-form-field>
   
 </form>
-
+</div>
 <div>
   <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
   <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>

@@ -14,6 +14,7 @@ export class Urocultivo{
     observaciones:string;
     antibiograma:string;
     fecha:Date;
+    cilindros:string;
     gramnegativo:GramNegativo;
     grampositivo:GramPositivo;
     comprobantepago:ComprobantePago;

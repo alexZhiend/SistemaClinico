@@ -1,0 +1,60 @@
+<mat-card>Ingrese los datos del examen</mat-card>
+
+<mat-form-field style="padding-top: 15px;" class="example-full-width">
+  <input type="text" placeholder="Numero de recibo" required aria-label="Assignee" matInput [formControl]="comprobante"
+    [matAutocomplete]="auto">
+  <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+      {{option.numerorecibocomprobante}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<mat-form-field style="width: 90%;">
+  <input matInput placeholder="paciente" [(ngModel)]="paciente">
+</mat-form-field>
+
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()">
+
+<div hidden="true">
+  <mat-form-field>
+      <input matInput placeholder="id" formControlName="idcorpofuncional">
+    </mat-form-field>
+  </div>
+  
+  <mat-form-field>
+    <input matInput placeholder="Sudam"  formControlName="sudam"
+    type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Benedict"  formControlName="benedict"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+  <input matInput placeholder="sangre oculta"  formControlName="sangreoculta"
+    type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Reaccion inflamatoria"  formControlName="reacinflamatoria"
+      type="string" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Observaciones"  formControlName="observaciones"
+      type="string" ></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker" required formControlName="fechaseleccionada" placeholder="Fecha" >
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+</form>
+
+<button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+<button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>

@@ -1,0 +1,57 @@
+<mat-toolbar>Registro de historia clínica</mat-toolbar>
+
+<div class="example-container mat-elevation-z8" style="margin: 25px;">
+
+  <div class="example-header" style="margin-left: 25px;">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar paciente">
+    </mat-form-field>
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="hcl">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>HCL</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.paciente.hcl}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dnipaciente">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.paciente.dnipaciente}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nombresyapellidos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombres y apellidos</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.paciente.nombresyapellidos}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fechadeexpedicion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de expedición</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fechaexpediciconhistoriaclinica}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">        
+        <button mat-button color="primary" (click)="openDialog(row)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button color="primary" (click)="pdf(row)">
+            <mat-icon>assignment</mat-icon>
+          </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+<br>
+
+<button mat-fab color="accent" (click)="openDialog(row)" style="float: right; margin-right: 20px">
+  <mat-icon>create</mat-icon>
+</button>

@@ -1,7 +1,8 @@
+import { Observable } from 'rxjs';
 import { PersonalmedicoService } from './../../../_service/personalmedico.service';
 import { ServiciomedicoService } from './../../../_service/serviciomedico.service';
 import { ComprobantepagoService } from './../../../_service/comprobantepago.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatAutocompleteSelectedEvent } from '@angular/material';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Personalmedico } from './../../../_model/personalmedico';
 import { ComprobantePago } from './../../../_model/comprobantepago';
@@ -9,6 +10,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Secreciones } from 'src/app/_model/secreciones';
 import { Serviciomedico } from 'src/app/_model/serviciomedico';
 import { SecrecionesService } from 'src/app/_service/secreciones.service';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dialog-secreciones',
@@ -28,6 +30,16 @@ export class DialogSecrecionesComponent implements OnInit {
 
   fechaSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
+
+  comprobante = new FormControl();
+  filteredOptions: Observable<ComprobantePago[]>;
+  comprobanteseleccionado= new ComprobantePago();
+  paciente:string;
+
+  personal = new FormControl();
+  filteredOptions1: Observable<Personalmedico[]>;
+  personalseleccionado= new Personalmedico();
+
   constructor(public dialogRef: MatDialogRef<DialogSecrecionesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Secreciones,
     private comprobantepagoService:ComprobantepagoService,
@@ -66,6 +78,50 @@ ngOnInit() {
     this.listarPersonal();
     this.listarServicio();
 
+    this.filteredOptions = this.comprobante.valueChanges.pipe(
+      startWith(),
+      map(value => typeof value === 'string' ? value : value.numerorecibocomprobante),
+      map(numerorecibocomprobante => numerorecibocomprobante ? this._filter(numerorecibocomprobante) : this.comprobantepagos.slice())
+    );
+
+    this.filteredOptions1 = this.personal.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.nombrespersonalmedico),
+      map(nombrespersonalmedico => nombrespersonalmedico ? this._filter1(nombrespersonalmedico) : this.medicos.slice())
+    );
+  }
+
+  displayFn(comprobantepago?: ComprobantePago): number | undefined {
+    return comprobantepago ? comprobantepago.numerorecibocomprobante : undefined;
+  }
+
+  displayFn1(personalmedico?: Personalmedico): string | undefined {
+    return personalmedico ? personalmedico.nombrespersonalmedico : undefined;
+  }
+
+  private _filter(numerorecibocomprobante: number): ComprobantePago[] {
+    const filterValue = numerorecibocomprobante.toString().toLowerCase();
+    return this.comprobantepagos.filter(comprobante => comprobante.numerorecibocomprobante.toString().toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  private _filter1(nombrespersonalmedico: string): Personalmedico[] {
+    const filterValue = nombrespersonalmedico.toLowerCase();
+    return this.medicos.filter(personal => personal.nombrespersonalmedico.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  onSelectionChanged1(event: MatAutocompleteSelectedEvent) {
+    this.personalseleccionado = event.option.value;
+    console.log(this.personalseleccionado)
+  }
+
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    this.comprobanteseleccionado = event.option.value;
+    if (this.comprobanteseleccionado.paciente==null) {
+      this.paciente="Paciente externo";
+    }else{
+      this.paciente=this.comprobanteseleccionado.paciente.nombresyapellidos;
+      console.log(this.comprobanteseleccionado);
+    }
 
   }
 
@@ -89,7 +145,7 @@ ngOnInit() {
 
 operar(){
       let comprobante = new ComprobantePago();
-      comprobante.idcomprobantepago=this.form.value['idcomprobantepagoSeleccionado'];
+      comprobante.idcomprobantepago=this.comprobanteseleccionado.idcomprobantepago;
       console.log(comprobante);
       this.secrecion.comprobantepago=comprobante;
       
@@ -98,7 +154,7 @@ operar(){
       this.secrecion.tipo=this.form.value['tipoSeleccionado'];
 
       this.secrecion.indicaciones=this.form.value['indicaciones'];
-      this.secrecion.medico=this.form.value['nombrespersonalmedico'];
+      this.secrecion.medico=this.personalseleccionado.nombrespersonalmedico;
       this.secrecion.leucocitos=this.form.value['leucocitos'];
       this.secrecion.hematies=this.form.value['hematies'];
       this.secrecion.cepiteliales=this.form.value['cepiteliales'];

@@ -1,14 +1,16 @@
+import { Observable } from 'rxjs';
 import { Personalmedico } from './../../../_model/personalmedico';
 import { PersonalmedicoService } from './../../../_service/personalmedico.service';
 import { ServiciomedicoService } from './../../../_service/serviciomedico.service';
 import { ComprobantepagoService } from './../../../_service/comprobantepago.service';
 import { Orina } from './../../../_model/orina';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatAutocompleteSelectedEvent } from '@angular/material';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ComprobantePago } from './../../../_model/comprobantepago';
 import { Component, OnInit, Inject } from '@angular/core';
 import { OrinaService } from 'src/app/_service/orina.service';
 import { Serviciomedico } from 'src/app/_model/serviciomedico';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dialog-orina',
@@ -27,6 +29,16 @@ export class DialogOrinaComponent implements OnInit {
 
   fechaSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
+
+  comprobante = new FormControl();
+  filteredOptions: Observable<ComprobantePago[]>;
+  comprobanteseleccionado= new ComprobantePago();
+  paciente:string;
+
+  personal = new FormControl();
+  filteredOptions1: Observable<Personalmedico[]>;
+  personalseleccionado= new Personalmedico();
+
   constructor(public dialogRef: MatDialogRef<DialogOrinaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Orina,
     private comprobantepagoService:ComprobantepagoService,
@@ -66,6 +78,53 @@ export class DialogOrinaComponent implements OnInit {
     this.listarComprobante();
     this.listarPersonal();
     this.listarServicio();
+
+    this.filteredOptions = this.comprobante.valueChanges.pipe(
+      startWith(),
+      map(value => typeof value === 'string' ? value : value.numerorecibocomprobante),
+      map(numerorecibocomprobante => numerorecibocomprobante ? this._filter(numerorecibocomprobante) : this.comprobantepagos.slice())
+    );
+
+    this.filteredOptions1 = this.personal.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.nombrespersonalmedico),
+      map(nombrespersonalmedico => nombrespersonalmedico ? this._filter1(nombrespersonalmedico) : this.medicos.slice())
+    );
+
+  }
+
+  displayFn(comprobantepago?: ComprobantePago): number | undefined {
+    return comprobantepago ? comprobantepago.numerorecibocomprobante : undefined;
+  }
+
+  displayFn1(personalmedico?: Personalmedico): string | undefined {
+    return personalmedico ? personalmedico.nombrespersonalmedico : undefined;
+  }
+
+  private _filter(numerorecibocomprobante: number): ComprobantePago[] {
+    const filterValue = numerorecibocomprobante.toString().toLowerCase();
+    return this.comprobantepagos.filter(comprobante => comprobante.numerorecibocomprobante.toString().toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  private _filter1(nombrespersonalmedico: string): Personalmedico[] {
+    const filterValue = nombrespersonalmedico.toLowerCase();
+    return this.medicos.filter(personal => personal.nombrespersonalmedico.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  onSelectionChanged1(event: MatAutocompleteSelectedEvent) {
+    this.personalseleccionado = event.option.value;
+    console.log(this.personalseleccionado)
+  }
+
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    this.comprobanteseleccionado = event.option.value;
+    if (this.comprobanteseleccionado.paciente==null) {
+      this.paciente="Paciente externo";
+    }else{
+      this.paciente=this.comprobanteseleccionado.paciente.nombresyapellidos;
+      console.log(this.comprobanteseleccionado);
+    }
+
   }
 
   listarComprobante(){
@@ -88,11 +147,13 @@ export class DialogOrinaComponent implements OnInit {
 
 operar(){
       let comprobante = new ComprobantePago();
-      comprobante.idcomprobantepago=this.form.value['idcomprobantepagoSeleccionado'];
+      comprobante.idcomprobantepago=this.comprobanteseleccionado.idcomprobantepago;
       console.log(comprobante);
       this.orina.comprobantepago=comprobante;
       this.orina.servicio=this.form.value['denominacionserviciomedico'];
-      this.orina.medico=this.form.value['nombrespersonalmedico'];
+
+
+      this.orina.medico=this.personalseleccionado.nombrespersonalmedico;
       this.orina.color=this.form.value['color'];
       this.orina.aspecto=this.form.value['aspecto'];
       this.orina.densidad=this.form.value['densidad'];

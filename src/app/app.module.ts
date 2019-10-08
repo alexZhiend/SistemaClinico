@@ -48,6 +48,14 @@ import { DialogSecrecionesComponent } from './pages/secreciones/dialog-secrecion
 import { DialogHematogramaComponent } from './pages/hematograma/dialog-hematograma/dialog-hematograma.component';
 import { DetalleegComponent } from './pages/detalleeg/detalleeg.component';
 import { DialogurocultivoComponent } from './pages/urocultivo/dialogurocultivo/dialogurocultivo.component';
+import { DialoghecesComponent } from './pages/heces/dialogheces/dialogheces.component';
+import { DialogcoprofuncionalComponent } from './pages/coprofuncional/dialogcoprofuncional/dialogcoprofuncional.component';
+import { HistorialComponent } from './pages/historial/historial.component';
+import { DialoghistorialComponent } from './pages/historial/dialoghistorial/dialoghistorial.component';
+import { LoginComponent } from './login/login.component';
+import { Not403Component } from './pages/not403/not403.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -93,7 +101,13 @@ import { DialogurocultivoComponent } from './pages/urocultivo/dialogurocultivo/d
     DialogSecrecionesComponent,
     DialogHematogramaComponent,
     DetalleegComponent,
-    DialogurocultivoComponent
+    DialogurocultivoComponent,
+    DialoghecesComponent,
+    DialogcoprofuncionalComponent,
+    HistorialComponent,
+    DialoghistorialComponent,
+    LoginComponent,
+    Not403Component
     
     ],
 
@@ -103,12 +117,13 @@ import { DialogurocultivoComponent } from './pages/urocultivo/dialogurocultivo/d
     MaterialModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,PdfViewerModule,
+    NgxExtendedPdfViewerModule
   ],
   entryComponents:[DialogproductoComponent,DialogexamenmedicoComponent, 
     DialogpacienteComponent, DialogPersonalmedicoComponent, DialogOrinaComponent,
     DialogaglutinacionesComponent, DialogSecrecionesComponent, DialogHematogramaComponent, 
-    DialogurocultivoComponent],
+    DialogurocultivoComponent,DialoghecesComponent,DialogcoprofuncionalComponent,DialoghistorialComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

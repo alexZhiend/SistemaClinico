@@ -12,11 +12,11 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$Dispensariopazybien-primary: mat-palette($mat-indigo);
-$Dispensariopazybien-accent: mat-palette($mat-pink, A200, A100, A400);
+$Dispensariopazybien-primary: mat-palette($mat-brown,600);
+$Dispensariopazybien-accent: mat-palette($mat-orange, A100, A600, A400);
 
 // The warn palette is optional (defaults to red).
-$Dispensariopazybien-warn: mat-palette($mat-red);
+$Dispensariopazybien-warn: mat-palette($mat-red,400);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $Dispensariopazybien-theme: mat-light-theme($Dispensariopazybien-primary, $Dispensariopazybien-accent, $Dispensariopazybien-warn);

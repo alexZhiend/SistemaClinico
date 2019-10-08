@@ -1,3 +1,7 @@
+import { Not403Component } from './pages/not403/not403.component';
+import { LoginComponent } from './login/login.component';
+import { GuardService } from './_service/guard.service';
+import { HistorialComponent } from './pages/historial/historial.component';
 import { DetalleegComponent } from './pages/detalleeg/detalleeg.component';
 import { UrocultivoComponent } from './pages/urocultivo/urocultivo.component';
 import { HematogramacComponent } from './pages/hematogramac/hematogramac.component';
@@ -37,56 +41,59 @@ import { ExamenesgeneralesEdicionComponent } from './pages/examenesgenerales/exa
 const routes: Routes = [ 
 {path:'categoriaproducto', component: CategoriaproductoComponent, 
   children:[{path:'nuevo', component: CategoriaproductoEdicionComponent},
-            {path:'edicion/:id', component:CategoriaproductoEdicionComponent}]
+            {path:'edicion/:id', component:CategoriaproductoEdicionComponent}], canActivate:[GuardService]
 },
 {path:'categoriaexamenmedico', component: CategoriaexamenmedicoComponent,
   children:[{path:'nuevo', component: CategoriaexamenmedicoEdicionComponent},
-            {path:'edicion/:id', component:CategoriaexamenmedicoEdicionComponent}]
+            {path:'edicion/:id', component:CategoriaexamenmedicoEdicionComponent}], canActivate:[GuardService]
 },
 {path:'especialidad', component: EspecialidadComponent,
   children:[{path:'nuevo', component: EspecialidadEdicionComponent},
-            {path:'edicion/:id', component:EspecialidadEdicionComponent}]
+            {path:'edicion/:id', component:EspecialidadEdicionComponent}], canActivate:[GuardService]
 },
 {path:'presentacion', component: PresentacionComponent,
   children:[{path:'nuevo', component: PresentacionEdicionComponent},
-            {path:'edicion/:id', component:PresentacionEdicionComponent}]
+            {path:'edicion/:id', component:PresentacionEdicionComponent}], canActivate:[GuardService]
 },
 {path:'proveedor', component: ProveedorComponent,
   children:[{path:'nuevo', component: ProveedorEdicionComponent},
-            {path:'edicion/:id', component:ProveedorEdicionComponent}]
+            {path:'edicion/:id', component:ProveedorEdicionComponent}], canActivate:[GuardService]
 },
 {path:'serviciomedico', component: ServiciomedicoComponent,
   children:[{path:'nuevo', component: ServiciomedicoEdicionComponent},
-            {path:'edicion/:id', component:ServiciomedicoEdicionComponent}]
+            {path:'edicion/:id', component:ServiciomedicoEdicionComponent}], canActivate:[GuardService]
           },
 {path:'tipopaciente', component: TipopacienteComponent,
   children:[{path:'nuevo', component: TipopacienteEdicionComponent},
-            {path:'edicion/:id', component:TipopacienteEdicionComponent}]
+            {path:'edicion/:id', component:TipopacienteEdicionComponent}], canActivate:[GuardService]
 },
 {path:'tipopersonalmedico', component: TipopersonalmedicoComponent,
   children:[{path:'nuevo', component: TipopersonalmedicoEdicionComponent},
-            {path:'edicion/:id', component:TipopersonalmedicoEdicionComponent}]
+            {path:'edicion/:id', component:TipopersonalmedicoEdicionComponent}], canActivate:[GuardService]
 },
-{path:'aglutinacionaf', component: AglutinacionesComponent},
-{path:'comprobantepago',component:ComprobantepagoComponent},
-{path:'coprofuncional',component:CoprofuncionalComponent},
+{path:'aglutinacionaf', component: AglutinacionesComponent, canActivate:[GuardService]},
+{path:'comprobantepago',component:ComprobantepagoComponent, canActivate:[GuardService]},
+{path:'coprofuncional',component:CoprofuncionalComponent, canActivate:[GuardService]},
 {path:'examenesgenerales',component:ExamenesgeneralesComponent, 
   children:[{path:'nuevo',component:ExamenesgeneralesEdicionComponent},
             {path:'edicion/:id', component:ExamenesgeneralesEdicionComponent}
-]},
-{path:'examenmedico',component:ExamenmedicoComponent},
-{path:'analisisheces',component:HecesComponent},
-{path:'hematograma',component:HematogramaComponent},
-{path:'hematogramacompleto',component:HematogramacComponent},
-{path:'ordenfarmacia',component:OrdenComponent},
-{path:'analisisorina',component:OrinaComponent},
-{path:'paciente',component:PacienteComponent},
-{path:'personalmedico',component:PersonalmedicoComponent},
-{path:'detalleexamengeneral', component:DetalleegComponent},
-{path:'producto',component:ProductoComponent},
-{path:'analisissecreciones',component:SecrecionesComponent},
-{path:'urocultivo',component:UrocultivoComponent},
-{path:'**',component:TipopacienteComponent}
+], canActivate:[GuardService]},
+{path:'examenmedico',component:ExamenmedicoComponent, canActivate:[GuardService]},
+{path:'analisisheces',component:HecesComponent, canActivate:[GuardService]},
+{path:'historial',component:HistorialComponent, canActivate:[GuardService]},
+{path:'hematograma',component:HematogramaComponent, canActivate:[GuardService]},
+{path:'hematogramacompleto',component:HematogramacComponent, canActivate:[GuardService]},
+{path:'ordenfarmacia',component:OrdenComponent, canActivate:[GuardService]},
+{path:'analisisorina',component:OrinaComponent, canActivate:[GuardService]},
+{path:'paciente',component:PacienteComponent, canActivate:[GuardService]},
+{path:'personalmedico',component:PersonalmedicoComponent, canActivate:[GuardService]},
+{path:'detalleexamengeneral', component:DetalleegComponent, canActivate:[GuardService]},
+{path:'producto',component:ProductoComponent, canActivate:[GuardService]},
+{path:'analisissecreciones',component:SecrecionesComponent, canActivate:[GuardService]},
+{path:'urocultivo',component:UrocultivoComponent, canActivate:[GuardService]},
+{path: "login", component: LoginComponent},
+{ path: 'not-403', component: Not403Component },
+{path: "", redirectTo:'login', pathMatch:'full'},
 ];
 
 @NgModule({

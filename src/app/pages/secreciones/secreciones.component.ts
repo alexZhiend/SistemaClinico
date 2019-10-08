@@ -12,9 +12,10 @@ import { DialogSecrecionesComponent } from './dialog-secreciones/dialog-secrecio
 export class SecrecionesComponent implements OnInit {
 
   secrecioness: Secreciones[] = [];
-  displayedColumns = ['idsecrecionesepmb','fecha','observaciones','nombrespaciente','apellidospaciente','hcl','acciones'];
+  displayedColumns = ['idsecrecionesepmb','fecha','nombrespaciente','hcl','observaciones','acciones'];
   dataSource: MatTableDataSource<Secreciones>;
   mensaje: string;
+  sec:string="";
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -60,8 +61,18 @@ ngOnInit() {
       });
     }
     
-    generatepdf(){
+    generatepdf(s: Secreciones){
+      console.log(s.idsecrecionesepmb);
+      this.secrecionesService.reporteSecrecionPaciente(s.idsecrecionesepmb).subscribe(data => {
+        
 
+        let reader = new FileReader();
+        reader.onload = (e:any)=>{
+          console.log(e.target.result);
+          this.sec = e.target.result; //base64
+        }
+        reader.readAsArrayBuffer(data);
+      });
     }
     
 }

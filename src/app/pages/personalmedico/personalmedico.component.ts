@@ -12,7 +12,7 @@ import { DialogPersonalmedicoComponent } from './dialog-personalmedico/dialog-pe
 export class PersonalmedicoComponent implements OnInit {
 
   personalmedicos: Personalmedico[] = [];
-  displayedColumns = ['dnipersonalmedico', 'nombrespersonalmedico', 'apellidospersonalmedico', 'tipopersonalmedico','especialidad','areapersonalmedico','acciones'];
+  displayedColumns = ['dnipersonalmedico', 'nombrespersonalmedico', 'tipopersonalmedico','especialidad','areapersonalmedico','acciones'];
   dataSource: MatTableDataSource<Personalmedico>;
   mensaje: string;
 
@@ -53,7 +53,7 @@ export class PersonalmedicoComponent implements OnInit {
     openDialog(personalmedico: Personalmedico): void {
       let pro = personalmedico != null ? personalmedico : new Personalmedico();
       let dialogRef = this.dialog.open(DialogPersonalmedicoComponent, {
-        width: '500px',   
+        width: '600px',   
         disableClose: true,   
         
         data: pro      

@@ -1,14 +1,20 @@
 <mat-toolbar>Hematograma</mat-toolbar>
 
-<form class="example-container" [formGroup]="form" (ngSubmit)="operar()" >
+<mat-form-field style="padding-top: 15px;padding-left: 25px;" class="example-full-width">
+  <input type="text" placeholder="Numero de recibo" required aria-label="Assignee" matInput [formControl]="comprobante"
+    [matAutocomplete]="auto">
+  <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+      {{option.numerorecibocomprobante}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado" [(value)]="idcomprobantepagoSeleccionado">
-      <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
-        {{ p.numerorecibocomprobante }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<mat-form-field style="width: 90%;padding-left: 25px;">
+  <input matInput placeholder="paciente" [(ngModel)]="paciente">
+</mat-form-field>
+
+<form class="example-container" [formGroup]="form" (ngSubmit)="operar()" >
 
 <div hidden="true">
   <mat-form-field>
@@ -16,77 +22,81 @@
   </mat-form-field>
 </div>
 
-  <mat-form-field>
+<div>
+  <mat-form-field class="field"> 
   <input matInput placeholder="Hematies" required formControlName="hematies"
     type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
     <input matInput placeholder="Leucocitos" required formControlName="leucocitos"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
     <input matInput placeholder="Plaquetas" required formControlName="plaquetas"
       type="string" >
   </mat-form-field>
-
+</div>
   <mat-card></mat-card>
 
-  <mat-form-field>
+
+<div>
+  <mat-form-field class="field">
     <input matInput placeholder="Hemoglobina" required formControlName="hemoglobina"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
     <input matInput placeholder="Hematocrito" required formControlName="hematocrito"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
     <input matInput placeholder="Tiempo de coagulacion" required formControlName="tcoagulacion"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
     <input matInput placeholder="Tiempo de sangria" required formControlName="tsangria"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
     <input matInput placeholder="vsg" required formControlName="vsg"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
     <input matInput placeholder="Grupo sanguineo" required formControlName="gruposanguineo"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
     <input matInput placeholder="Factor RH" required formControlName="rh"
       type="string" >
   </mat-form-field>
-
-  <mat-form-field>
+</div>
+  <mat-form-field style="padding-left: 25px;">
     <input matInput placeholder="observaciones" required formControlName="observaciones"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+<div>
+  <mat-form-field class="field">
     <input matInput placeholder="Tipo" required formControlName="tipo"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="field">
       <input matInput [matDatepicker]="picker" required formControlName="fechaseleccionada" placeholder="Fecha" >
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-  
+  </div>  
 </form>
 
-<div style="margin-bottom: 50px">
+<div style="margin-bottom: 50px;padding-left: 25px;padding-right: 25px;">
   <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
   <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
   <button style="float:right; margin-right: 15px" mat-raised-button color="primary" (click)="openDialog(row)">Hematograma completo</button>
@@ -117,20 +127,10 @@
       <mat-cell *matCellDef="let row"> {{row.tipo}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="observaciones">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.observaciones}} </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="nombrespaciente">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.nombrespaciente}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.nombresyapellidos}} </mat-cell>
     </ng-container>    
-
-    <ng-container matColumnDef="apellidospaciente">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.comprobantepago.paciente.apellidospaciente}} </mat-cell>
-    </ng-container>
 
     <ng-container matColumnDef="hcl">
       <mat-header-cell *matHeaderCellDef mat-sort-header> HCL </mat-header-cell>
@@ -140,7 +140,7 @@
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">        
-        <button mat-button color="primary" (click)="generatepdf()">
+        <button mat-button color="primary" (click)="generatepdf(row)">
           <mat-icon>picture_as_pdf</mat-icon>
         </button>
       </mat-cell>
@@ -155,7 +155,5 @@
 </div>
 
 <br>
-
-<button mat-fab color="accent" (click)="abrir()" style="float: right; margin-right: 20px">
-  <mat-icon>create</mat-icon>
-</button>
+<div style="padding: 50px;"></div>
+<pdf-viewer [src]="hem" [external-link-target]="'blank'" [render-text]="true"  style="display: block;"></pdf-viewer>

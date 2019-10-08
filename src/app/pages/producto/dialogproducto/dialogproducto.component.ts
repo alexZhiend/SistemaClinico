@@ -111,22 +111,32 @@ export class DialogproductoComponent implements OnInit {
         this.producto.categoriaproducto=categoria;
         this.producto.presentacionproducto=presentacion;
 
-
+        if (this.producto.nombreproducto!=null&&this.producto.cantidadproducto!=null&&this.producto.pventaproducto!=null&&this.producto.pingresoproducto!=null
+          &&this.producto.marcaproducto!=null&&this.producto.fingresoproducto!=null&&this.producto.presentacionproducto!=null&&this.producto.proveedor!=null
+          &&this.producto.categoriaproducto!=null) {
+          
         this.productoService.registrarproducto(this.producto).subscribe(data => {
           
-            this.productoService.listarproductos().subscribe(productos => {
-              this.productoService.productosCambio.next(productos);
-              this.productoService.mensaje.next("Se registró correctamente");
-            });
-          
-        });
-      }
+          this.productoService.listarproductos().subscribe(productos => {
+            this.productoService.productosCambio.next(productos);
+            this.productoService.mensaje.next("Se registró correctamente");
+          });
+        
+      });
       this.dialogRef.close();
+
+        }else{
+
+          this.productoService.mensaje.next('Falta algún dato requerido del producto');
+        }
+
+      }
+
     }
   
     cancelar(){
       this.dialogRef.close();
-      this.productoService.mensaje.next('se canceló el procedimiento');
+      this.productoService.mensaje.next('Se canceló el procedimiento');
     }
     
 

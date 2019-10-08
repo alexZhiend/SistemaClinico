@@ -1,6 +1,6 @@
 <div class="example-container">
-  <mat-form-field>
-    <input matInput placeholder="Nombre" [(ngModel)]="producto.nombreproducto">
+  <mat-form-field class="obs">
+    <input matInput required placeholder="Nombre" [(ngModel)]="producto.nombreproducto">
   </mat-form-field>
 
   <mat-form-field>
@@ -10,33 +10,33 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Cantidad" [(ngModel)]="producto.cantidadproducto">
+    <input matInput required type="number" placeholder="Cantidad" [(ngModel)]="producto.cantidadproducto">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Precio de venta" [(ngModel)]="producto.pventaproducto">
+    <input matInput required type="number" placeholder="Precio de venta" [(ngModel)]="producto.pventaproducto">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Precio de ingreso" [(ngModel)]="producto.pingresoproducto">
+    <input matInput required type="number" placeholder="Precio de ingreso" [(ngModel)]="producto.pingresoproducto">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Marca" [(ngModel)]="producto.marcaproducto">
+    <input matInput required placeholder="Marca" [(ngModel)]="producto.marcaproducto">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Lote" [(ngModel)]="producto.loteproducto">
+    <input matInput required placeholder="Lote" [(ngModel)]="producto.loteproducto">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [matDatepicker]="picker1" placeholder="Fecha de ingreso" [(ngModel)]="producto.fingresoproducto">
+    <input matInput required [matDatepicker]="picker1" placeholder="Fecha de ingreso" [(ngModel)]="producto.fingresoproducto">
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
   </mat-form-field>
 
    <mat-form-field>
-    <mat-select placeholder="Proveedor" [(value)]="idProveedorSeleccionado">
+    <mat-select required placeholder="Proveedor" [(value)]="idProveedorSeleccionado">
       <mat-option *ngFor="let p of proveedores" [value]="p.idproveedor">
         {{ p.nombreproveedor }}
       </mat-option>
@@ -44,7 +44,7 @@
   </mat-form-field>
     
   <mat-form-field>
-    <mat-select placeholder="Categoría" [(value)]="idCategoriaSeleccionado">
+    <mat-select required placeholder="Categoría" [(value)]="idCategoriaSeleccionado">
       <mat-option *ngFor="let p of categorias" [value]="p.idcategoriaproducto">
         {{ p.nombrecategoriaproducto }}
       </mat-option>
@@ -52,7 +52,7 @@
   </mat-form-field>
     
   <mat-form-field>
-    <mat-select placeholder="Presentacion" [(value)]="idPresentacionSeleccionado">
+    <mat-select required placeholder="Presentacion" [(value)]="idPresentacionSeleccionado">
       <mat-option *ngFor="let p of presentaciones" [value]="p.idpresentacionproducto">
         {{ p.nombrepresentacionproducto }}
       </mat-option>

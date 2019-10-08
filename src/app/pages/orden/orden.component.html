@@ -34,13 +34,22 @@
 <mat-card>Registrar detalle de la venta</mat-card>
 <br/>
 <div>
+
+    <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Producto" aria-label="Assignee" matInput [formControl]="producto"
+          [matAutocomplete]="auto">
+        <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete"
+          [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+            {{option.nombreproducto}}, Marca: {{option.marcaproducto}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
   <form class="example" [formGroup]="form1">
+
     <mat-form-field>
-      <mat-select placeholder="Producto" required formControlName="productoSeleccionado" [(value)]="productoSeleccionado">
-        <mat-option *ngFor="let p of productos" [value]="p">
-          {{ p.nombreproducto }}
-        </mat-option>
-      </mat-select>
+      <input matInput placeholder="Stock" formControlName="stock" type="number" [(value)]="stock">
     </mat-form-field>
 
     <mat-form-field style="padding-left: 25px;">
@@ -107,3 +116,4 @@
 
 <div style="width: 100%; height: 30px;"></div>
 </div>
+

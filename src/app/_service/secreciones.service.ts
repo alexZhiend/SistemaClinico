@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { TOKEN_NAME } from './../_shared/var.constant';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Secreciones } from './../_model/secreciones';
 import { Injectable } from '@angular/core';
@@ -15,18 +16,38 @@ export class SecrecionesService {
   constructor(private http:HttpClient) { }
 
   listarSecreciones(){
-    return this.http.get<Secreciones[]>(this.url);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Secreciones[]>(this.url, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   listarSecrecionesId(id: number){
-    return this.http.get<Secreciones>(`${this.url}/${id}`) 
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get<Secreciones>(`${this.url}/${id}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    }) 
   }
 
   registrarSecreciones(secreciones: Secreciones){
-    return this.http.post(this.url, secreciones);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.post(this.url, secreciones, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   modificarSecreciones(secreciones: Secreciones){
-    return this.http.put(this.url, secreciones);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.put(this.url, secreciones, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
+
+  reporteSecrecionPaciente(id: number) {    
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get(`${this.url}/reporteSecrecion/${id}`, {
+      responseType: 'blob',
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 }

@@ -1,5 +1,21 @@
 <mat-card>Ingrese los datos del examen</mat-card>
 
+
+<mat-form-field class="example-full-width">
+  <input type="text" placeholder="Numero de recibo" required aria-label="Assignee" matInput [formControl]="comprobante"
+    [matAutocomplete]="auto">
+  <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async" [(value)]="option">
+      {{option.numerorecibocomprobante}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<mat-form-field style="width: 90%;">
+  <input matInput placeholder="paciente" [(ngModel)]="paciente">
+</mat-form-field>
+
+
 <form class="example-container" [formGroup]="form" (ngSubmit)="operar()">
 
 <div hidden="true">
@@ -9,38 +25,38 @@
   </div>
 
   <mat-form-field>
-    <input matInput placeholder="Tiphico O" required formControlName="tiphicoO"
+    <input matInput placeholder="Tiphico O" formControlName="tiphicoO"
     type="string" >
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Tiphico H" required formControlName="tiphicoH"
+    <input matInput placeholder="Tiphico H" formControlName="tiphicoH"
       type="string" >
   </mat-form-field>
 
   <mat-form-field>
-  <input matInput placeholder="Tiphico H" required formControlName="tiphicoH"
+  <input matInput placeholder="Tiphico H" formControlName="tiphicoH"
     type="string" >
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Paratiphico A" required formControlName="paratiphicoA"
+    <input matInput placeholder="Paratiphico A" formControlName="paratiphicoA"
       type="string" >
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Paratiphico B" required formControlName="paratiphicoB"
+    <input matInput placeholder="Paratiphico B" formControlName="paratiphicoB"
       type="string" >
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Brucella" required formControlName="brucella"
+    <input matInput placeholder="Brucella" formControlName="brucella"
       type="string" >
   </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Observaciones" required formControlName="observaciones"
-      type="string" >
+  <mat-form-field style="width: 90%;">
+    <textarea matInput placeholder="Observaciones" formControlName="observaciones"
+      type="string" ></textarea>
   </mat-form-field>
 
   <mat-form-field>
@@ -49,13 +65,6 @@
       <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Comprobante" required formControlName="idcomprobantepagoSeleccionado" [(value)]="idcomprobantepagoSeleccionado">
-      <mat-option *ngFor="let p of comprobantepagos" [value]="p.idcomprobantepago">
-        {{ p.numerorecibocomprobante }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
 
 </form>
 

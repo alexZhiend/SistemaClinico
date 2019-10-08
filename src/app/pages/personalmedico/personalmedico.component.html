@@ -20,11 +20,6 @@
       <mat-cell *matCellDef="let row"> {{row.nombrespersonalmedico}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apellidospersonalmedico">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.apellidospersonalmedico}} </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="tipopersonalmedico">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de personal </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.tipopersonalmedico.cargopersonalmedico}} </mat-cell>

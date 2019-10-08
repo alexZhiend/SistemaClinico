@@ -1,5 +1,6 @@
+import { TOKEN_NAME } from './../_shared/var.constant';
 import { Categoriaexamenmedico } from './../_model/categoriaexamenmedico';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HOST } from '../_shared/var.constant';
 import { Subject } from 'rxjs';
@@ -17,19 +18,35 @@ export class CategoriaexamenmedicoService {
   }
 
   listarCategoriaExamen(){
-    return this.http.get<Categoriaexamenmedico[]>(this.url)
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+
+    return this.http.get<Categoriaexamenmedico[]>(this.url, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    })
   }
 
   listarCategoriaexamenmedicoId(id: number){
-    return this.http.get<Categoriaexamenmedico>(`${this.url}/${id}`);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+
+    return this.http.get<Categoriaexamenmedico>(`${this.url}/${id}`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   registrarCategoriaExamen(categoriaexamenmedico: Categoriaexamenmedico){
-    return this.http.post(this.url, categoriaexamenmedico);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+
+    return this.http.post(this.url, categoriaexamenmedico, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
   modificarCategoriaExamen(categoriaexamenmedico: Categoriaexamenmedico){
-    return this.http.put(this.url, categoriaexamenmedico);
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+
+    return this.http.put(this.url, categoriaexamenmedico, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
   }
 
 }

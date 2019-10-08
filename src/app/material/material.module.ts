@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, MatDividerModule, MatToolbarModule, MatFormFieldModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatCardModule, MatSnackBarModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatListModule, MatExpansionModule, MatNativeDateModule, MatAutocompleteModule, MatGridList, MatGridListModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, MatDividerModule, MatToolbarModule, MatFormFieldModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatCardModule, MatSnackBarModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatListModule, MatExpansionModule, MatNativeDateModule, MatAutocompleteModule, MatGridList, MatGridListModule, MatStepperModule, MatTabsModule} from '@angular/material';
 
 @NgModule({
     imports:[CommonModule,
@@ -26,7 +26,7 @@ import {MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, MatDivi
         MatExpansionModule,
         MatNativeDateModule,
         MatAutocompleteModule,
-        MatSelectModule, MatGridListModule
+        MatSelectModule, MatGridListModule, MatStepperModule,MatTabsModule
     ],
     exports:[MatButtonModule,
         MatIconModule, 
@@ -49,7 +49,7 @@ import {MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, MatDivi
         MatNativeDateModule,
         MatAutocompleteModule,
         MatSelectModule,
-        MatGridListModule
+        MatGridListModule,MatStepperModule,MatTabsModule
     ],
 
     providers:[],
