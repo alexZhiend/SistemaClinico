@@ -14,11 +14,11 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput required type="number" placeholder="Precio de venta" [(ngModel)]="producto.pventaproducto">
+    <input matInput required placeholder="Precio de venta" [(ngModel)]="producto.pventaproducto">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput required type="number" placeholder="Precio de ingreso" [(ngModel)]="producto.pingresoproducto">
+    <input matInput required placeholder="Precio de ingreso" [(ngModel)]="producto.pingresoproducto">
   </mat-form-field>
 
   <mat-form-field>
@@ -54,7 +54,7 @@
   <mat-form-field>
     <mat-select required placeholder="Presentacion" [(value)]="idPresentacionSeleccionado">
       <mat-option *ngFor="let p of presentaciones" [value]="p.idpresentacionproducto">
-        {{ p.nombrepresentacionproducto }}
+        {{ p.nombrepresentacionproducto }} - {{p.cantidadpresentacionproducto}} - {{p.unidadpresentacionproducto}}
       </mat-option>
     </mat-select>
   </mat-form-field>

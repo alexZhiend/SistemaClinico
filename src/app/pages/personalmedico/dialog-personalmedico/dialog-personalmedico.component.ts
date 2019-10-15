@@ -67,7 +67,7 @@ export class DialogPersonalmedicoComponent implements OnInit {
   
     operar(){
       
-      if(this.personalmedico != null && this.personalmedico.dnipersonalmedico != null){
+      if(this.personalmedico == null && this.personalmedico.dnipersonalmedico == null){
 
         let tipopersonalmedico = new Tipopersonalmedico();
         tipopersonalmedico.idtipopersonalmedico= this.idTipopersonalmedicoSeleccionado;

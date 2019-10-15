@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { DetalleExamen } from 'src/app/_model/detalleeg';
 import { FormGroup, FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-detalleeg',
@@ -46,6 +47,7 @@ export class DetalleegComponent implements OnInit {
   examengeneral = new FormControl();
   filteredOptions1: Observable<Examenesg[]>;
   examenseleccionado= new Examenesg();
+  ex:any='';
 
 
   constructor(private examenesgService: ExamenesgService,
@@ -180,6 +182,18 @@ export class DetalleegComponent implements OnInit {
   }
 
   pdf() {
+    if(this.comprobanteseleccionado.idcomprobantepago>1 && this.form.value['fechaseleccionada']!=null){
+      let s :string;
+      s=moment(this.form.value['fechaseleccionada']).format("DD-MM-YYYY");
+      console.log(s);
+      let a = this.comprobanteseleccionado.idcomprobantepago;
+      this.detalleegService.reporteExamenesgPaciente(a,s).subscribe(data=>{
+        this.ex=data;
+      })
+    }else{
+      this.detalleegService.mensaje.next('Debe ingresar el número de comprobante y la fecha')
+    }
+
 
   }
 

@@ -70,14 +70,14 @@ export class DialoghistorialComponent implements OnInit {
     this.historial.evaluacion = this.data.evaluacion;
     this.historial.examenes = this.data.examenes;
     this.historial.fechaexpediciconhistoriaclinica = this.data.fechaexpediciconhistoriaclinica;
-    this.historial.frecuenciacardiaca = this.data.frecuenciacardiaca;
-    this.historial.frecuenciarespiratoria = this.data.frecuenciarespiratoria;
+    this.historial.frecuenciacardiaca = 0;
+    this.historial.frecuenciarespiratoria =0;
     this.historial.malestares = this.data.malestares;
-    this.historial.peso = this.data.peso;
-    this.historial.presionarterial = this.data.presionarterial;
+    this.historial.peso = 0;
+    this.historial.presionarterial = 0;
     this.historial.serviciomedico = this.data.serviciomedico;
-    this.historial.talla = this.data.talla;
-    this.historial.temperatura = this.data.temperatura;
+    this.historial.talla = 0;
+    this.historial.temperatura = 0;
     this.historial.tratamiento = this.data.tratamiento;
     this.historial.reconsulta= this.data.reconsulta;
 
@@ -85,6 +85,23 @@ export class DialoghistorialComponent implements OnInit {
       this.paciente.setValue(this.data.paciente);
       this.personal.setValue(this.data.personalmedico);
       this.serviciomedicoseleccionado = this.data.serviciomedico;
+      
+      this.historial.idhistoriaclinica = this.data.idhistoriaclinica;
+      this.historial.anamnesis = this.data.anamnesis;
+      this.historial.diagnostico = this.data.diagnostico;
+      this.historial.edad = this.data.edad;
+      this.historial.evaluacion = this.data.evaluacion;
+      this.historial.examenes = this.data.examenes;
+      this.historial.fechaexpediciconhistoriaclinica = this.data.fechaexpediciconhistoriaclinica;
+      this.historial.frecuenciacardiaca = this.data.frecuenciacardiaca;
+      this.historial.frecuenciarespiratoria = this.data.frecuenciarespiratoria;
+      this.historial.malestares = this.data.malestares;
+      this.historial.peso = this.data.peso;
+      this.historial.presionarterial = this.data.presionarterial;
+      this.historial.talla = this.data.talla;
+      this.historial.temperatura = this.data.temperatura;
+      this.historial.tratamiento = this.data.tratamiento;
+      this.historial.reconsulta= this.data.reconsulta;
     }
 
 

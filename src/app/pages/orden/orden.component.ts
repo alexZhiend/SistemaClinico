@@ -56,7 +56,7 @@ export class OrdenComponent implements OnInit {
   cantidades:number[];
   stockreal:number;
   idproductoseleccionado: number;
-
+  or:any='';
 
   constructor(private ordenfarmaciaService:OrdenfarmaciaService,
     private productoService:ProductoService,
@@ -240,5 +240,12 @@ export class OrdenComponent implements OnInit {
     this.dataSource= new MatTableDataSource(this.transactions);
   }
 
+  imprimir(){
+    let a=parseInt(this.numeroorden);
+    console.log(a);
+    this.ordenfarmaciaService.reporteOrdenFPaciente(a).subscribe(data=>{
+      this.or=data;
+    })
+  }
 
 }

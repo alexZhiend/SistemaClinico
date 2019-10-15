@@ -22,12 +22,12 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "glob": "*/",
+                "glob": "**/*",
                 "input": "node_modules/ngx-extended-pdf-viewer/assets/locale",
                 "output": "/assets/locale/"
               },
               {
-                "glob": "*/",
+                "glob": "**/*",
                 "input": "node_modules/ngx-extended-pdf-viewer/assets/images",
                 "output": "/assets/images/"
               },
@@ -111,12 +111,12 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "glob": "*/",
+                "glob": "**/*",
                 "input": "node_modules/ngx-extended-pdf-viewer/assets/locale",
                 "output": "/assets/locale/"
               },
               {
-                "glob": "*/",
+                "glob": "**/*",
                 "input": "node_modules/ngx-extended-pdf-viewer/assets/images",
                 "output": "/assets/images/"
               },

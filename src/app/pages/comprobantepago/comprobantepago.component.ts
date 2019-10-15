@@ -12,6 +12,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ExamenMedico } from 'src/app/_model/examenmedico';
 import { DetalleComprobante } from 'src/app/_model/detallecomprobante';
+import * as moment from 'moment';
 
 
 @Component({
@@ -49,6 +50,12 @@ export class ComprobantepagoComponent implements OnInit {
 
   precioservicio=new Serviciomedico();
   examenseleccionado= new ExamenMedico();
+
+  fechaSeleccionada1: Date = null;
+  fechaSeleccionada2: Date = null;
+
+  cp:any='';
+  vent:any='';
 
   constructor(private comprobantepagoService:ComprobantepagoService,
               private pacienteservice:PacienteService,
@@ -202,7 +209,7 @@ export class ComprobantepagoComponent implements OnInit {
 
     servicio=this.form.value['idServiciomedicoSeleccionado'];
 
-    if (this.pacienteseleccionado=null) {
+    if (this.pacienteseleccionado!=null) {
       paciente.hcl=this.pacienteseleccionado.hcl;
     }else{
       paciente=null;
@@ -222,7 +229,7 @@ export class ComprobantepagoComponent implements OnInit {
     this.comprobantepago.cantidadotros=this.form.value['otros'];
     this.comprobantepago.cantidadtopico=this.form2.value['topico']
     this.comprobantepago.cantidadfarmacia=this.form1.value['farmacia'];
-
+    console.log(this.comprobantepago);
 
       this.comprobantepagoService.registrarComprobantePago(this.comprobantepago).subscribe(data=>{
         this.comprobantepagoService.mensaje.next("Se realizó el registro con exito");
@@ -244,4 +251,22 @@ export class ComprobantepagoComponent implements OnInit {
     window.location.reload();
   }
 
+  pdf(){
+    this.comprobantepagoService.reporteComprobanteU(6).subscribe(data=>{
+      this.cp=data;
+    });
+  }
+
+  pdfCaja(){
+    if (this.fechaSeleccionada1!=null && this.fechaSeleccionada2!=null 
+      && this.fechaSeleccionada1<this.fechaSeleccionada2) {
+        let s1 = moment(this.fechaSeleccionada1).format("DD-MM-YYYY");
+        let s2 = moment(this.fechaSeleccionada2).format("DD-MM-YYYY");
+        this.comprobantepagoService.reporteCaja(s1,s2).subscribe(data=>{
+          this.vent=data;
+        })
+    }else{
+      this.comprobantepagoService.mensaje.next('La fecha de inicio debe ser mayor a la fecha de fin');
+    }
+  }
 }

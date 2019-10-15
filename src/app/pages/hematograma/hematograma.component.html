@@ -1,4 +1,4 @@
-<mat-toolbar>Hematograma</mat-toolbar>
+<mat-toolbar>Hemograma</mat-toolbar>
 
 <mat-form-field style="padding-top: 15px;padding-left: 25px;" class="example-full-width">
   <input type="text" placeholder="Numero de recibo" required aria-label="Assignee" matInput [formControl]="comprobante"
@@ -156,4 +156,6 @@
 
 <br>
 <div style="padding: 50px;"></div>
-<pdf-viewer [src]="hem" [external-link-target]="'blank'" [render-text]="true"  style="display: block;"></pdf-viewer>
+<ngx-extended-pdf-viewer *ngIf="hem!=''" [src]="hem" useBrowserLocale="false" height="80vh">
+</ngx-extended-pdf-viewer>
+<link rel="hem" type="application/110n" href="https://www.example.com/locale/locale.properties"/> 

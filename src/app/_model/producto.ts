@@ -5,13 +5,13 @@ import { Presentacionproducto } from './presentacion';
 export class Producto{
     idproducto: number;
     nombreproducto: string;
-    fvproducto: string;
+    fvproducto: Date;
     cantidadproducto: number;
     pventaproducto: number;
     pingresoproducto: number;
     marcaproducto: string;
     loteproducto: string;
-    fingresoproducto: string;
+    fingresoproducto: Date;
     proveedor: Proveedor;
     categoriaproducto: Categoriaproducto;
     presentacionproducto:Presentacionproducto;

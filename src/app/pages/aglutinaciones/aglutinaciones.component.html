@@ -90,4 +90,6 @@
 </button>
 <div style="padding: 50px;"></div>
 
-<pdf-viewer [src]="aglu"  [external-link-target]="'blank'" [render-text]="true"  style="display: block;"></pdf-viewer>
+<ngx-extended-pdf-viewer *ngIf="aglu!=''" [src]="aglu" useBrowserLocale="false" height="80vh">
+</ngx-extended-pdf-viewer>
+<link rel="aglu" type="application/110n" href="https://www.example.com/locale/locale.properties"/>   

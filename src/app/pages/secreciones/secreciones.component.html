@@ -58,4 +58,6 @@
   <mat-icon>create</mat-icon>
 </button>
 <div style="padding: 50px;"></div>
-<pdf-viewer  [src]="sec" [stick-to-page]="true" [external-link-target]="'blank'" [render-text]="true"  style="display: block;"></pdf-viewer>
+<ngx-extended-pdf-viewer *ngIf="sec!=''" [src]="sec" useBrowserLocale="false" height="80vh">
+</ngx-extended-pdf-viewer>
+<link rel="sec" type="application/110n" href="https://www.example.com/locale/locale.properties"/> 

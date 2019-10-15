@@ -3,6 +3,7 @@ import { ProductoService } from './../../_service/producto.service';
 import { Producto } from './../../_model/producto';
 import { MatSort, MatPaginator, MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-producto',
@@ -15,6 +16,14 @@ export class ProductoComponent implements OnInit {
   displayedColumns = ['idproducto', 'nombreproducto', 'fvproducto', 'cantidadproducto','pventaproducto', 'pingresoproducto', 'marcaproducto', 'loteproducto', 'fingresoproducto','proveedor','categoriaproducto','presentacionproducto','presentacionproductounidad','presentacionproductocant', 'acciones'];
   dataSource: MatTableDataSource<Producto>;
   mensaje: string;
+  pro:any='';
+  vent:any='';
+
+  fechaSeleccionada1: Date = null;
+  maxFecha1: Date = new Date();
+
+  fechaSeleccionada2: Date = null;
+  maxFecha2: Date = new Date();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -67,5 +76,24 @@ ngOnInit() {
     });
   }
   
+  generatepdf(){
+    this.productoService.reporteProductoGeneral().subscribe(data=>{
+      this.pro=data;
+    })
+  }
+
+  pdfventas() {
+    if (this.fechaSeleccionada1!=null && this.fechaSeleccionada2!=null 
+      && this.fechaSeleccionada1<this.fechaSeleccionada2) {
+        let s1 = moment(this.fechaSeleccionada1).format("DD-MM-YYYY");
+        let s2 = moment(this.fechaSeleccionada2).format("DD-MM-YYYY");
+        this.productoService.reporteProductoVentas(s1,s2).subscribe(data=>{
+          this.vent=data;
+        })
+    }else{
+      this.productoService.mensaje.next('La fecha de inicio debe ser mayor a la fecha de fin');
+    }
+    
+  }
 
 }

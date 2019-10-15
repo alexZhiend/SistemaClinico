@@ -29,7 +29,7 @@ export class HematogramaComponent implements OnInit {
   filteredOptions: Observable<ComprobantePago[]>;
   comprobanteseleccionado= new ComprobantePago();
   paciente:string;
-  hem:string="";
+  hem:any='';
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -186,16 +186,8 @@ ngOnInit() {
     
     
     generatepdf(h: Hematograma){
-      console.log(h.idhematograma);
       this.hematogramaService.reporteAglutinacionHematograma(h.idhematograma).subscribe(data => {
-        
-
-        let reader = new FileReader();
-        reader.onload = (e:any)=>{
-          console.log(e.target.result);
-          this.hem = e.target.result; //base64
-        }
-        reader.readAsArrayBuffer(data);
+        this.hem=data;
       });
     }
     

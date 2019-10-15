@@ -44,4 +44,20 @@ export class ProductoService {
     });
   }
 
+  reporteProductoGeneral() {    
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get(`${this.url}/reporteProducto`, {
+      responseType: 'blob',
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
+
+  reporteProductoVentas(fechainicio: string,fechafin:string) {    
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get(`${this.url}/reporteProductoVentas/${fechainicio}/${fechafin}`, {
+      responseType: 'blob',
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
+
 }

@@ -37,4 +37,20 @@ export class ComprobantepagoService {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
   }
+
+  reporteComprobanteU(id: number) {    
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get(`${this.url}/reporteComporbante/${id}`, {
+      responseType: 'blob',
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
+
+  reporteCaja(fechainicio: string,fechafin:string) {    
+    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    return this.http.get(`${this.url}/reporteCaja/${fechainicio}/${fechafin}`, {
+      responseType: 'blob',
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
 }

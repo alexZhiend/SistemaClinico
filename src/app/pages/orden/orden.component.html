@@ -112,8 +112,12 @@
 
 <div class="example">
 <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Terminar</button>
-<button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar e imprimir</button>
+<button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button style="float:right; margin-right: 25px;" mat-raised-button color="primary" (click)="imprimir()">Imprimir</button>
 
 <div style="width: 100%; height: 30px;"></div>
 </div>
 
+<ngx-extended-pdf-viewer *ngIf="or!=''" [src]="or" useBrowserLocale="false" height="80vh">
+</ngx-extended-pdf-viewer>
+<link rel="or" type="application/110n" href="https://www.example.com/locale/locale.properties"/>   

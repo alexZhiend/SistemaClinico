@@ -138,7 +138,9 @@
 
     <div style="margin: 25px">
       <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Terminar</button>
-      <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar e imprimir</button>
+      <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+      <button style="float:right;margin-right: 25px;" mat-raised-button color="accent" (click)="pdf()">Imprimir</button>
+
     </div>
     <div style="padding: 25px;"></div>
   </mat-tab>
@@ -157,6 +159,7 @@
       <div style="margin: 25px">
         <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Terminar</button>
         <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+        <button style="float:right;margin-right: 25px;" mat-raised-button color="accent" (click)="pdf()">Imprimir</button>
       </div>
     </form>
 
@@ -177,12 +180,43 @@
       <div style="margin: 25px">
         <button style="float:left" mat-raised-button color="accent" (click)="cancelar()">Terminar</button>
         <button style="float:right" mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+        <button style="float:right;margin-right: 25px;" mat-raised-button color="accent" (click)="pdf()">Imprimir</button>
       </div>
 
     </form>
 
 
+  </mat-tab>
 
+  <mat-tab label="Reporte de caja">
+    <div>
+      <mat-form-field style="padding: 25px;">
+        <input matInput [matDatepicker]="picker1" placeholder="Fecha del inicio" [(ngModel)]="fechaSeleccionada1">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    
+      <mat-form-field style="padding: 25px;">
+        <input matInput [matDatepicker]="picker2" placeholder="Fecha del fin" [(ngModel)]="fechaSeleccionada2">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>  
+
+      <button mat-button color="primary" (click)="pdfCaja()">
+        <mat-icon>picture_as_pdf</mat-icon>
+        </button>
+    </div>
   </mat-tab>
 
 </mat-tab-group>
+
+<div style="padding: 25px;">
+  <ngx-extended-pdf-viewer *ngIf="cp!=''" [src]="cp" useBrowserLocale="false" height="80vh">
+  </ngx-extended-pdf-viewer>
+  <link rel="cp" type="application/110n" href="https://www.example.com/locale/locale.properties"/> 
+</div>
+<div style="padding: 25px;">
+  <ngx-extended-pdf-viewer *ngIf="vent!=''" [src]="vent" useBrowserLocale="false" height="80vh">
+  </ngx-extended-pdf-viewer>
+  <link rel="vent" type="application/110n" href="https://www.example.com/locale/locale.properties"/> 
+</div>

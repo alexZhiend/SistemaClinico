@@ -18,3 +18,13 @@
     overflow: auto;
     max-height: 500px;
 }
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: end;
+  align-items: flex-end;
+}

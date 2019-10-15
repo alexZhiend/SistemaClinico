@@ -16,7 +16,7 @@ export class AglutinacionesComponent implements OnInit {
   displayedColumns = ['idaglutinacionaf','fecha','nombrespaciente','hcl','observaciones','acciones'];
   dataSource: MatTableDataSource<Aglutinacion>;
   mensaje: string;
-  aglu:string='';
+  aglu:any='';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -65,30 +65,9 @@ ngOnInit() {
     generatepdf(aglutinacion: Aglutinacion){
       console.log(aglutinacion.idaglutinacionaf);
       this.aglutinacionService.reporteAglutinacionPaciente(aglutinacion.idaglutinacionaf).subscribe(data => {
-        
-
-        let reader = new FileReader();
-        reader.onload = (e:any)=>{
-          console.log(e.target.result);
-          this.aglu = e.target.result; //base64
-        }
-        reader.readAsArrayBuffer(data);
+        this.aglu=data;
       });
     }
-
-    descargarpdf(aglutinacion: Aglutinacion){
-      this.aglutinacionService.reporteAglutinacionPaciente(aglutinacion.idaglutinacionaf).subscribe(data => {
-        const url = window.URL.createObjectURL(data);
-        const a = document.createElement('a');
-        a.setAttribute('style', 'display:none;');
-        document.body.appendChild(a);
-        a.href = url;
-        a.download = 'archivo.pdf';
-        a.click();
-        console.log(url);
-        return url;
-      });
-    }
-    
+   
 }
 

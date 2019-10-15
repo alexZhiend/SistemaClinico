@@ -16,6 +16,7 @@ export class HistorialComponent implements OnInit {
   displayedColumns = ['hcl', 'dnipaciente', 'nombresyapellidos','fechadeexpedicion','acciones'];
   dataSource: MatTableDataSource<Historial>;
   mensaje: string;
+  his:any='';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -66,8 +67,11 @@ export class HistorialComponent implements OnInit {
     });
   }
 
-  pdf(){
-
+  pdf(h:Historial){
+      console.log(h.idhistoriaclinica);
+        this.historialService.generacionHistoria(h.idhistoriaclinica).subscribe(data=>{
+          this.his=data;
+        });
   }
 
 }

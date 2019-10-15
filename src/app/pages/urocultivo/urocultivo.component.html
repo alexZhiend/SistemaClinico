@@ -59,4 +59,6 @@
 </button>
 <div style="padding: 50px;"></div>
 
-<pdf-viewer [src]="uro" [external-link-target]="'blank'" [render-text]="true"  style="display: block;"></pdf-viewer>
+<ngx-extended-pdf-viewer *ngIf="uro!=''" [src]="uro" useBrowserLocale="false" height="80vh">
+</ngx-extended-pdf-viewer>
+<link rel="uro" type="application/110n" href="https://www.example.com/locale/locale.properties"/> 

@@ -1,7 +1,12 @@
 <div class="example-container">
-
+    <div style="padding: 20px;">
+      <span style="width: 25%;">Último HCL Interno:</span>
+      <input style="width: 100px; padding-left: 10px;" matInput placeholder="HCL Interno" disabled [(ngModel)]="hclinterno.hcl">
+      <span style="width: 25%;">Último HCL Externo:</span>
+      <input style="width: 100px; padding-left: 10px;"  matInput placeholder="HCL Externo" disabled [(ngModel)]="hclexterno.hcl">
+    </div>
     <mat-form-field>
-        <input matInput placeholder="hcl" [(ngModel)]="paciente.hcl">
+        <input matInput placeholder="HCL" [(ngModel)]="paciente.hcl">
       </mat-form-field>
 
     <mat-form-field>

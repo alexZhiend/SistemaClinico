@@ -1,4 +1,4 @@
-<mat-card>Laboratorio clínico - examenes generales</mat-card>
+<mat-card>Laboratorio clínico - exámenes generales</mat-card>
 <div style="padding-top: 25px;">
 
   <form class="example-container" [formGroup]="form2" (ngSubmit)="agregar()">
@@ -95,3 +95,7 @@
     </button>
   </div>
 </div>
+<div style="padding: 50px;"></div>
+<ngx-extended-pdf-viewer *ngIf="ex!=''" [src]="ex" useBrowserLocale="false" height="80vh">
+</ngx-extended-pdf-viewer>
+<link rel="ex" type="application/110n" href="https://www.example.com/locale/locale.properties"/> 

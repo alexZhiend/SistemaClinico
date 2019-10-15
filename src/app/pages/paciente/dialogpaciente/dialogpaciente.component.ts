@@ -18,12 +18,18 @@ export class DialogpacienteComponent implements OnInit {
 
   fechaSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
+
+  hclinterno: Paciente[]=[];
+  hclexterno: Paciente[]=[];
+
   constructor(public dialogRef: MatDialogRef<DialogpacienteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Paciente,
     private pacienteService:PacienteService,
     private tipopacienteService:TipopacienteService) { }
 
 ngOnInit() {
+    this.listarInterno();
+    this.listarExterno();
       this.listarTipopaciente();
       this.paciente = new Paciente();
       this.paciente.hcl=this.data.hcl;
@@ -53,11 +59,23 @@ ngOnInit() {
         this.tipopacientes = data;
       });
     }
-  
-    operar(){
-      
-      if(this.paciente !=null && this.paciente.hcl != null){
 
+    listarInterno(){
+      this.pacienteService.listarInterno().subscribe(data =>{
+        this.hclinterno=data;
+      })
+    }
+  
+    listarExterno(){
+      this.pacienteService.listarExterno().subscribe(data =>{
+        this.hclexterno=data;
+      })
+    }
+
+    operar(){
+      console.log(this.data.hcl);
+
+      if(this.paciente != null && this.paciente.hcl.length > 0){
         let tipopaciente = new Tipopaciente();
         tipopaciente.idtipopaciente= this.idTipopacienteSeleccionado;
         this.paciente.tipopaciente=tipopaciente;
@@ -72,7 +90,6 @@ ngOnInit() {
         });
 
       }else{
-
         let tipopaciente = new Tipopaciente();
         tipopaciente.idtipopaciente= this.idTipopacienteSeleccionado;
         this.paciente.tipopaciente=tipopaciente;
@@ -93,8 +110,6 @@ ngOnInit() {
           this.pacienteService.mensaje.next('Falta algún dato requerido del paciente')
 
         }
-
-
       }
       
     }

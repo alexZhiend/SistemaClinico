@@ -15,7 +15,7 @@ export class CoprofuncionalComponent implements OnInit {
   displayedColumns = ['idcorpofuncional', 'fecha', 'nombrespaciente', 'hcl', 'observaciones', 'acciones'];
   dataSource: MatTableDataSource<Coprofuncional>;
   mensaje: string;
-  copro:string = "";
+  copro:any ='';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -62,16 +62,8 @@ export class CoprofuncionalComponent implements OnInit {
   }
 
   generatepdf(cp: Coprofuncional){
-    console.log(cp.idcorpofuncional);
     this.coprofuncionalService.reporteCoproPaciente(cp.idcorpofuncional).subscribe(data => {
-      
-
-      let reader = new FileReader();
-      reader.onload = (e:any)=>{
-        console.log(e.target.result);
-        this.copro = e.target.result; //base64
-      }
-      reader.readAsArrayBuffer(data);
+      this.copro=data;
     });
   }
 
