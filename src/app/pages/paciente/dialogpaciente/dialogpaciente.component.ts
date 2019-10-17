@@ -19,8 +19,8 @@ export class DialogpacienteComponent implements OnInit {
   fechaSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
 
-  hclinterno: Paciente[]=[];
-  hclexterno: Paciente[]=[];
+  hclinterno= new Paciente();
+  hclexterno=new Paciente();
 
   constructor(public dialogRef: MatDialogRef<DialogpacienteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Paciente,
@@ -56,7 +56,7 @@ ngOnInit() {
 
     listarTipopaciente() {
       this.tipopacienteService.listarTipoPaciente().subscribe(data => {
-        this.tipopacientes = data;
+        this.tipopacientes=data;
       });
     }
 

@@ -18,6 +18,7 @@ export class ProductoComponent implements OnInit {
   mensaje: string;
   pro:any='';
   vent:any='';
+  row:Producto;
 
   fechaSeleccionada1: Date = null;
   maxFecha1: Date = new Date();

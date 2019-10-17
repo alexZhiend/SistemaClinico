@@ -17,6 +17,7 @@ export class AglutinacionesComponent implements OnInit {
   dataSource: MatTableDataSource<Aglutinacion>;
   mensaje: string;
   aglu:any='';
+  ag:Aglutinacion;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

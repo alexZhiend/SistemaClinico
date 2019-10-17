@@ -17,6 +17,7 @@ export class HistorialComponent implements OnInit {
   dataSource: MatTableDataSource<Historial>;
   mensaje: string;
   his:any='';
+  hist:Historial;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

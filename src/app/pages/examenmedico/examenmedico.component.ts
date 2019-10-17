@@ -15,6 +15,7 @@ export class ExamenmedicoComponent implements OnInit {
   displayedColumns = ['idexamenmedico', 'denominacionexamenmedico', 'precioexmenmedico', 'categoriaexamenmedico','acciones'];
   dataSource: MatTableDataSource<ExamenMedico>;
   mensaje: string;
+  row:ExamenMedico;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

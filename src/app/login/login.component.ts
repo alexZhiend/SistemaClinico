@@ -5,7 +5,6 @@ import { TOKEN_NAME } from 'src/app/_shared/var.constant';
 import { MenuService } from 'src/app/_service/menu.service';
 import * as decode from 'jwt-decode';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

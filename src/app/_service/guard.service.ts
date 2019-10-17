@@ -5,13 +5,14 @@ import { MenuService } from './menu.service';
 import { LoginService } from './login.service';
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 import * as decode from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuardService {
+export class GuardService implements CanActivate{
 
   constructor(private loginService: LoginService, private menuService: MenuService, private router: Router) { }
   

@@ -91,9 +91,9 @@ const routes: Routes = [
 {path:'producto',component:ProductoComponent, canActivate:[GuardService]},
 {path:'analisissecreciones',component:SecrecionesComponent, canActivate:[GuardService]},
 {path:'urocultivo',component:UrocultivoComponent, canActivate:[GuardService]},
-{path: "login", component: LoginComponent},
-{ path: 'not-403', component: Not403Component },
-{path: "", redirectTo:'login', pathMatch:'full'},
+{path:"login", component: LoginComponent},
+{path:'not-403', component: Not403Component },
+{path: "", redirectTo:'login', pathMatch:'full'}
 ];
 
 @NgModule({

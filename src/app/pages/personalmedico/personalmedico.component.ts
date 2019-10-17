@@ -15,6 +15,7 @@ export class PersonalmedicoComponent implements OnInit {
   displayedColumns = ['dnipersonalmedico', 'nombrespersonalmedico', 'tipopersonalmedico','especialidad','areapersonalmedico','acciones'];
   dataSource: MatTableDataSource<Personalmedico>;
   mensaje: string;
+  row:Personalmedico;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

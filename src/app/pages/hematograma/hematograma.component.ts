@@ -30,6 +30,7 @@ export class HematogramaComponent implements OnInit {
   comprobanteseleccionado= new ComprobantePago();
   paciente:string;
   hem:any='';
+  hemo:Hematograma;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

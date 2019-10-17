@@ -56,6 +56,7 @@ import { LoginComponent } from './login/login.component';
 import { Not403Component } from './pages/not403/not403.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     DialogpacienteComponent, DialogPersonalmedicoComponent, DialogOrinaComponent,
     DialogaglutinacionesComponent, DialogSecrecionesComponent, DialogHematogramaComponent, 
     DialogurocultivoComponent,DialoghecesComponent,DialogcoprofuncionalComponent,DialoghistorialComponent],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{provide:LocationStrategy, useClass: HashLocationStrategy}],
+  bootstrap: [AppComponent] 
 })
 export class AppModule { }

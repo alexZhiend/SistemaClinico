@@ -25,7 +25,7 @@
 
   <mat-form-field>
     <input matInput placeholder="R.U.C." formControlName="rucordenfarmacia"
-    [(value)]="rucordenfarmacia" type="number">
+    type="number">
   </mat-form-field>
 
 
@@ -53,7 +53,7 @@
     </mat-form-field>
 
     <mat-form-field style="padding-left: 25px;">
-      <input matInput placeholder="Cantidad" formControlName="cantidadfarmacia" [(value)]="cantidadfarmacia" required type="number">
+      <input matInput placeholder="Cantidad" formControlName="cantidadfarmacia" required type="number">
     </mat-form-field>
     
     <button style="float:right" mat-raised-button color="primary" (click)="agregar()">Agregar</button>

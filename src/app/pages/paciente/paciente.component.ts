@@ -15,6 +15,7 @@ export class PacienteComponent implements OnInit {
   displayedColumns = ['hcl', 'dnipaciente', 'nombresyapellidos','tipopaciente','acciones'];
   dataSource: MatTableDataSource<Paciente>;
   mensaje: string;
+  row:Paciente;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

@@ -24,7 +24,7 @@ export class DialoghecesComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
-  fechaSeleccionada: Date = new Date();
+  fechaseleccionada: Date = new Date();
   maxFecha: Date = new Date();
 
   comprobante = new FormControl();
@@ -121,7 +121,7 @@ export class DialoghecesComponent implements OnInit {
     this.heces.hematies=this.firstFormGroup.value['hematies'];
     this.heces.observaciones=this.firstFormGroup.value['observaciones'];
     this.heces.parasitos=this.firstFormGroup.value['parasitos'];
-    this.heces.fecha=this.fechaSeleccionada;
+    this.heces.fecha=this.fechaseleccionada;
 
     if (this.firstFormGroup.valid === true) { 
       this.hecesService.registrarHeces(this.heces).subscribe(data =>{
@@ -147,7 +147,7 @@ export class DialoghecesComponent implements OnInit {
     this.heces.hematies=this.secondFormGroup.value['hematies'];
     this.heces.parasitos=this.secondFormGroup.value['parasitos'];
     this.heces.observaciones=this.secondFormGroup.value['observaciones'];
-    this.heces.fecha=this.fechaSeleccionada;
+    this.heces.fecha=this.fechaseleccionada;
 
     if (this.secondFormGroup.valid === true) { 
       this.hecesService.registrarHeces(this.heces).subscribe(data =>{
@@ -175,7 +175,7 @@ export class DialoghecesComponent implements OnInit {
     this.heces.hematies=this.thirdFormGroup.value['hematies'];
     this.heces.parasitos=this.thirdFormGroup.value['parasitos'];
     this.heces.observaciones=this.thirdFormGroup.value['observaciones'];
-    this.heces.fecha=this.fechaSeleccionada;
+    this.heces.fecha=this.fechaseleccionada;
 
     if (this.thirdFormGroup.valid === true) { 
       this.hecesService.registrarHeces(this.heces).subscribe(data =>{

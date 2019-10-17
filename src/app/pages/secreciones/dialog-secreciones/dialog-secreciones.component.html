@@ -44,7 +44,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Tipo" required formControlName="tipoSeleccionado" [(value)]="tipoSeleccionado">
+    <mat-select placeholder="Tipo" required formControlName="tipoSeleccionado">
       <mat-option *ngFor="let p of tipo" [value]="p">
         {{ p }}
       </mat-option>

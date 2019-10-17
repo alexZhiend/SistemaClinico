@@ -15,6 +15,7 @@ export class UrocultivoComponent implements OnInit {
   dataSource: MatTableDataSource<Urocultivo>;
   mensaje: string;
   uro:any='';
+  row:Urocultivo;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

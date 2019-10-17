@@ -1,9 +1,9 @@
-import { TOKEN_NAME } from './../_shared/var.constant';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Menu } from './../_model/menu';
-import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HOST } from '../_shared/var.constant';
+import { HOST, TOKEN_NAME } from 'src/app/_shared/var.constant';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Menu } from 'src/app/_model/menu';
+import { Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'

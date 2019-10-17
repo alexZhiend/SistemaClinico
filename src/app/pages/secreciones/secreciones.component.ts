@@ -16,7 +16,7 @@ export class SecrecionesComponent implements OnInit {
   dataSource: MatTableDataSource<Secreciones>;
   mensaje: string;
   sec:any='';
-  
+  secr:Secreciones;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 

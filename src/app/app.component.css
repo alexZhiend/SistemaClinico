@@ -9,7 +9,7 @@
 }
 
 .dispensario-sidenav-contenedor{
-    color: #3e2723;
+    color: #1565C0;
     flex: 1;
 }
 
@@ -18,17 +18,17 @@
 }
 
 .dispensario-toolbar{
-    background: #3e2723;
+    background: #1565C0;
     color:#fff3e0;
 }
 
 .side{
-    background: #fff3e0;
-    color:#3e2723;
+    background: #C5CAE9;
+    color:#1565C0;
 }
 
 
 .uper>button{
     background: #fff3e0;
-    color:#3e2723;
+    color:#1565C0;
 }

@@ -44,14 +44,14 @@ export class PacienteService {
 
   listarInterno(){
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.get<Paciente[]>(`${HOST}/paciente/ultimoInterno`, {
+    return this.http.get<Paciente>(`${HOST}/paciente/ultimoInterno`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
   }
 
   listarExterno(){
     let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-    return this.http.get<Paciente[]>(`${HOST}/paciente/ultimoExterno`, {
+    return this.http.get<Paciente>(`${HOST}/paciente/ultimoExterno`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
     });
   }

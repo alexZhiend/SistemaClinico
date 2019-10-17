@@ -16,6 +16,7 @@ export class CoprofuncionalComponent implements OnInit {
   dataSource: MatTableDataSource<Coprofuncional>;
   mensaje: string;
   copro:any ='';
+  cp:Coprofuncional;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

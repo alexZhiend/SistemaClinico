@@ -15,6 +15,7 @@ export class HecesComponent implements OnInit {
   dataSource: MatTableDataSource<Heces>;
   mensaje: string;
   hec:any='';
+  hece:Heces;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

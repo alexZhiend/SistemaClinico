@@ -7,8 +7,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Numero de recibo" disabled required [(ngModel)]="numerocomprobante" type="number"
-      [(value)]="numero">
+    <input matInput placeholder="Numero de recibo" disabled required [(ngModel)]="numerocomprobante" type="number">
   </mat-form-field>
 </div>
 
@@ -37,8 +36,7 @@
 
       <div>
       <mat-form-field>
-        <mat-select (selectionChange)="servicio($event)" placeholder="Servicio medico" formControlName="idServiciomedicoSeleccionado"
-          [(value)]="idServiciomedicoSeleccionado">
+        <mat-select (selectionChange)="servicio($event)" placeholder="Servicio medico" formControlName="idServiciomedicoSeleccionado">
           <mat-option *ngFor="let p of serviciomedicos" [value]="p">
             {{ p.denominacionserviciomedico }}
           </mat-option>
@@ -75,8 +73,7 @@
 
         <mat-form-field style="padding-left: 25px;">
           <input matInput placeholder="Cantidad" 
-           formControlName="cantidadcomprobante" [(value)]="cantidadcomprobante"
-            required type="number">
+           formControlName="cantidadcomprobante" required type="number">
         </mat-form-field>
 
         <button style="float:right" mat-raised-button color="primary" (click)="agregar()">Agregar</button>

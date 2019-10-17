@@ -53,7 +53,7 @@ export class ComprobantepagoComponent implements OnInit {
 
   fechaSeleccionada1: Date = null;
   fechaSeleccionada2: Date = null;
-
+  
   cp:any='';
   vent:any='';
 
@@ -252,7 +252,7 @@ export class ComprobantepagoComponent implements OnInit {
   }
 
   pdf(){
-    this.comprobantepagoService.reporteComprobanteU(6).subscribe(data=>{
+    this.comprobantepagoService.reporteComprobanteU(parseInt(this.numerocomprobante)).subscribe(data=>{
       this.cp=data;
     });
   }

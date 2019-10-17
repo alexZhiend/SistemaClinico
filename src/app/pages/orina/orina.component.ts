@@ -15,6 +15,7 @@ export class OrinaComponent implements OnInit {
   dataSource: MatTableDataSource<Orina>;
   mensaje: string;
   orin:any='';
+  or:Orina;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
